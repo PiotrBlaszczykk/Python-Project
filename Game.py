@@ -2,14 +2,20 @@ import sys
 import pygame
 from player import Player
 import math
+from grass import Grass
 from map import Map
 from cloud import Cloud
+from deska import Deska
 class Game:
-    def __init__(self, player):
+    def __init__(self, player, grass, deska1, deska2):
         pygame.init()
         pygame.display.set_caption('Escape from D17')
         self.player = player
-        self.screen = pygame.display.set_mode((840, 680))
+        self.grass = grass
+        self.deska1 = deska1
+        self.deska2 = deska2
+        # self.screen = pygame.display.set_mode((840, 680))
+        self.screen = pygame.display.set_mode((1280, 720))
         self.clock = pygame.time.Clock()
 
 
@@ -84,37 +90,31 @@ class Game:
     def run(self):
         while True:
             self.screen.fill((14, 219, 248))
-            self.player.tickUpdate()
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
+            self.screen.blit(self.grass.getAppearance(), self.grass.getPosition())
+            self.screen.blit(self.deska1.getAppearance(), self.deska1.getPosition())
+            self.screen.blit(self.deska2.getAppearance(), self.deska2.getPosition())
+            self.player.tick_update([self.grass, self.deska1, self.deska2])
 
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        self.player.player_movement[0] = True
-                    if event.key == pygame.K_DOWN:
-                        self.player.player_movement[1] = True
-                    if event.key == pygame.K_LEFT:
-                        self.player.player_movement[2] = True
-                    if event.key == pygame.K_RIGHT:
-                        self.player.player_movement[3] = True
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_UP:
-                        self.player.player_movement[0] = False
-                    if event.key == pygame.K_DOWN:
-                        self.player.player_movement[1] = False
-                    if event.key == pygame.K_LEFT:
-                        self.player.player_movement[2] = False
-                    if event.key == pygame.K_RIGHT:
-                        self.player.player_movement[3] = False
+
+                self.player.movement(event)
 
             pygame.display.update()
-            self.clock.tick(60)
+            # self.clock.tick(60)
+            self.clock.tick(128) #na bogato, bo czemu nie
+
+
 
 curr_player = Player('player1', [0, 0], 'main character/main character looking right.jpg')
-game_instance = Game(curr_player)
+grass = Grass('grass', [0, 664])
+deska1 = Deska('deska1', [300, 600])
+deska2 = Deska('deska2', [200, 500])
+game_instance = Game(curr_player, grass, deska1, deska2)
 game_instance.showMenu()
 #game_instance.run()
 
