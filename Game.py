@@ -6,14 +6,21 @@ from grass import Grass
 from map import Map
 from cloud import Cloud
 from deska import Deska
+from kolumna import Kolumna
+
+import time
+
+from config import fps, fps_ratio
 class Game:
-    def __init__(self, player, grass, deska1, deska2):
+    def __init__(self, player, grass, deska1, deska2, deska3, kolumna):
         pygame.init()
         pygame.display.set_caption('Escape from D17')
         self.player = player
         self.grass = grass
         self.deska1 = deska1
         self.deska2 = deska2
+        self.deska3 = deska3
+        self.kolumna = kolumna
         # self.screen = pygame.display.set_mode((840, 680))
         self.screen = pygame.display.set_mode((1280, 720))
         self.clock = pygame.time.Clock()
@@ -88,13 +95,20 @@ class Game:
             self.clock.tick(60)
 
     def run(self):
+
         while True:
             self.screen.fill((14, 219, 248))
+
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
+
             self.screen.blit(self.grass.getAppearance(), self.grass.getPosition())
+
             self.screen.blit(self.deska1.getAppearance(), self.deska1.getPosition())
             self.screen.blit(self.deska2.getAppearance(), self.deska2.getPosition())
-            self.player.tick_update([self.grass, self.deska1, self.deska2])
+            self.screen.blit(self.deska3.getAppearance(), self.deska3.getPosition())
+            self.screen.blit(self.kolumna.getAppearance(), self.kolumna.getPosition())
+
+            self.player.tick_update([self.grass, self.deska1, self.deska2, self.deska3, self.kolumna])
 
             for event in pygame.event.get():
 
@@ -105,16 +119,24 @@ class Game:
                 self.player.movement(event)
 
             pygame.display.update()
-            # self.clock.tick(60)
-            self.clock.tick(128) #na bogato, bo czemu nie
+            self.clock.tick(fps)
 
 
 
 curr_player = Player('player1', [0, 0], 'main character/main character looking right.jpg')
 grass = Grass('grass', [0, 664])
-deska1 = Deska('deska1', [300, 600])
+
+deska1 = Deska('deska1', [700, 580])
 deska2 = Deska('deska2', [200, 500])
-game_instance = Game(curr_player, grass, deska1, deska2)
+deska3 = Deska('deska3', [1000, 420])
+
+kolumna = Kolumna('kolumna', [1196, -208])
+
+# deska4 = Deska('deska4', [200, 500])
+# deska5 = Deska('deska5', [200, 500])
+
+
+game_instance = Game(curr_player, grass, deska1, deska2, deska3, kolumna)
 game_instance.showMenu()
 #game_instance.run()
 
