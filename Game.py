@@ -7,6 +7,7 @@ from map import Map
 from cloud import Cloud
 from deska import Deska
 from kolumna import Kolumna
+from pauza import Pause
 
 import time
 
@@ -24,6 +25,8 @@ class Game:
         # self.screen = pygame.display.set_mode((840, 680))
         self.screen = pygame.display.set_mode((1280, 720))
         self.clock = pygame.time.Clock()
+
+        self.paused = False
 
 
     def showMenu(self):
@@ -96,6 +99,11 @@ class Game:
 
     def run(self):
 
+        self.pause_button = pygame.image.load("grafiki_dump/pauza.png")
+        self.pause_button = pygame.transform.scale(self.pause_button, (471, 78))
+        self.pause_button_rect = self.pause_button.get_rect(
+            center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
+
         while True:
             self.screen.fill((14, 219, 248))
 
@@ -108,7 +116,6 @@ class Game:
             self.screen.blit(self.deska3.getAppearance(), self.deska3.getPosition())
             self.screen.blit(self.kolumna.getAppearance(), self.kolumna.getPosition())
 
-            self.player.tick_update([self.grass, self.deska1, self.deska2, self.deska3, self.kolumna])
 
             for event in pygame.event.get():
 
@@ -116,14 +123,27 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
-                self.player.movement(event)
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        if self.paused:
+                            self.paused = False
+                        else:
+                            self.paused = True
 
-            pygame.display.update()
+                if not self.paused:
+                    self.player.movement(event)
+
+            if not self.paused:
+                self.player.tick_update([self.grass, self.deska1, self.deska2, self.deska3, self.kolumna])
+            else:
+                self.screen.blit(self.pause_button, self.pause_button_rect)
+
             self.clock.tick(fps)
+            pygame.display.update()
 
 
 
-curr_player = Player('player1', [0, 0], 'main character/main character looking right.jpg')
+curr_player = Player('player1', [0, 0], 'main character/main_char.png')
 grass = Grass('grass', [0, 664])
 
 deska1 = Deska('deska1', [700, 580])
@@ -132,8 +152,6 @@ deska3 = Deska('deska3', [1000, 420])
 
 kolumna = Kolumna('kolumna', [1196, -208])
 
-# deska4 = Deska('deska4', [200, 500])
-# deska5 = Deska('deska5', [200, 500])
 
 
 game_instance = Game(curr_player, grass, deska1, deska2, deska3, kolumna)

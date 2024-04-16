@@ -8,15 +8,16 @@ class Player():
         self.hitbox = self.appearance.get_rect(topleft=self.position)
         #self.inventory = []
         self.player_movement = [False, False, False, False]
+
         self.vertical_velocity = 0
         self.horizontal_velocity = 0
 
         #stałe * fps_ratio, przyspiesznia * fps_ratio ^ 2
         self.max_horizontal_velocity = 5 * fps_ratio
-        self.gravity = 0.3 * fps_ratio**2
-        self.friction = 0.15 * fps_ratio**2
-        self.speed_up = 1.8 * fps_ratio**2
-        self.max_vertical_velocity = 5 * fps_ratio
+        self.gravity = 0.3 * (fps_ratio**2)
+        self.friction = 0.15 * (fps_ratio**2)
+        self.speed_up = 1.8 * (fps_ratio**2)
+        self.max_vertical_velocity = 7 * fps_ratio
         self.min_vertical_velocity = -10 * fps_ratio
 
         self.airborne = True
@@ -50,10 +51,7 @@ class Player():
         self.position[1] = int(self.position[1])
         #w celu synchronizacji hitboxa z pozycja
         self.hitbox.topleft = self.position
-        # print("position", self.position)
-        # print("hitbox", self.hitbox.topleft)
-        # if self.airborne == False:
-        #     self.vertical_velocity = 0
+
 
         if self.player_movement[2]:  # Ruch w lewo
             self.horizontal_velocity -= self.speed_up
@@ -66,6 +64,7 @@ class Player():
                 self.horizontal_velocity = self.max_horizontal_velocity
 
         else:
+            #hamowanie
             if abs(self.horizontal_velocity) > 0.1 * fps_ratio:
                 if self.horizontal_velocity >= 0:
                     self.horizontal_velocity -= self.friction
@@ -80,23 +79,18 @@ class Player():
 
         self.position[0] += self.horizontal_velocity
 
-
-    # def stop_vertical(self):
-    #     self.vertical_velocity = 0
-    #     self.airborne = False
-
     def jump(self):
 
         if not self.airborne:
             self.airborne = True
             self.position[1] -= 10
-            self.vertical_velocity = -10 * fps_ratio
+            self.vertical_velocity = -12 * fps_ratio
 
 
     def movement(self, event):
 
         if event.type == pygame.KEYDOWN:
-            #print(f"Key down: {pygame.key.name(event.key)}")
+
             if event.key == pygame.K_LEFT:
                 self.player_movement[2] = True
                 self.player_movement[3] = False
@@ -108,7 +102,7 @@ class Player():
                 self.jump()
 
         elif event.type == pygame.KEYUP:
-            #print(f"Key up: {pygame.key.name(event.key)}")
+
             if event.key == pygame.K_LEFT:
                 self.player_movement[2] = False
             elif event.key == pygame.K_RIGHT:
@@ -118,6 +112,9 @@ class Player():
     def handle_collision(self, object):
 
         #hitbox[ position[0], position[1], szerokosc, wysokosc]
+        #funkcja handle_collision zwróci True, jeśli kolizja polega na tym, że
+        #gracz stoi na ziemi, w przeciwnym wypadku zwraca False
+        #jest to po to by dobrze ustalić paramentr airborne
 
         #kolizje poziome
         if object.hitbox.colliderect(self.hitbox[0] + self.horizontal_velocity, self.hitbox[1], self.hitbox[2], self.hitbox[3]):
@@ -145,7 +142,6 @@ class Player():
 
         else:
             return False
-
 
     def handle_collisions(self, objects):
 
