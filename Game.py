@@ -95,7 +95,7 @@ class Game:
                         self.run()
                         break
             pygame.display.flip()
-            self.clock.tick(60)
+            self.clock.tick(fps)
 
     def run(self):
 
@@ -142,8 +142,9 @@ class Game:
             pygame.display.update()
 
 
+IMAGE_PATH = "player_details"
 
-curr_player = Player('player1', [0, 0], 'main character/main_char.png')
+curr_player = Player('player1', [0, 0], IMAGE_PATH)
 grass = Grass('grass', [0, 664])
 
 deska1 = Deska('deska1', [700, 580])

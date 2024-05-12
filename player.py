@@ -1,5 +1,7 @@
 import pygame
 from config import fps_ratio
+from player_details.animation_enum import State
+
 class Player():
     def __init__(self, playerName, playerPosition, imagePath):
         self.name = playerName
@@ -9,18 +11,31 @@ class Player():
         #self.inventory = []
         self.player_movement = [False, False, False, False]
 
+        self.state = State.IDLE_RIGHT
+
         self.vertical_velocity = 0
         self.horizontal_velocity = 0
 
         #stałe * fps_ratio, przyspiesznia * fps_ratio ^ 2
-        self.max_horizontal_velocity = 5 * fps_ratio
+        self.max_horizontal_velocity = 7 * fps_ratio
         self.gravity = 0.3 * (fps_ratio**2)
-        self.friction = 0.15 * (fps_ratio**2)
+        self.friction = 0.2 * (fps_ratio**2)
         self.speed_up = 1.8 * (fps_ratio**2)
         self.max_vertical_velocity = 7 * fps_ratio
         self.min_vertical_velocity = -10 * fps_ratio
 
         self.airborne = True
+
+        self.ticks_since_last_frame = 0
+        self.ticks_per_frame = 10  # Liczba ticków między zmianami klatek
+
+    def load_images(self, imagePath):
+        self.images = {
+            State.IDLE_LEFT: [pygame.image.load(f"{imagePath}/standing_l1.png"),
+                              pygame.image.load(f"{imagePath}/standing_l2.png")],
+            State.IDLE_RIGHT: [pygame.image.load(f"{imagePath}/standing_r1.png"),
+                               pygame.image.load(f"{imagePath}/standing_r2.png")]
+        }
 
     def setPosition(self, playerPosition):
         self.position = playerPosition
@@ -65,7 +80,7 @@ class Player():
 
         else:
             #hamowanie
-            if abs(self.horizontal_velocity) > 0.1 * fps_ratio:
+            if abs(self.horizontal_velocity) > 0.2 * fps_ratio:
                 if self.horizontal_velocity >= 0:
                     self.horizontal_velocity -= self.friction
                 else:
@@ -79,13 +94,34 @@ class Player():
 
         self.position[0] += self.horizontal_velocity
 
+        #animacja
+        self.update_animation()
+
     def jump(self):
 
         if not self.airborne:
             self.airborne = True
-            self.position[1] -= 10
+            #self.position[1] -= 10
             self.vertical_velocity = -12 * fps_ratio
 
+    def update_state(self):
+        if self.player_movement[2]:  # Ruch w lewo
+            self.state = State.MOVING_LEFT
+        elif self.player_movement[3]:  # Ruch w prawo
+            self.state = State.MOVING_RIGHT
+        else:
+            # Załóżmy, że jest to stan spoczynku
+            if self.state in [State.MOVING_LEFT, State.IDLE_LEFT]:
+                self.state = State.IDLE_LEFT
+            else:
+                self.state = State.IDLE_RIGHT
+
+    def update_animation(self):
+        self.ticks_since_last_frame += 1  # Inkrementuj licznik ticków
+        if self.ticks_since_last_frame >= self.ticks_per_frame:
+            self.current_frame = (self.current_frame + 1) % len(self.images[self.state])
+            self.appearance = self.images[self.state][self.current_frame]
+            self.ticks_since_last_frame = 0  # Resetuj licznik ticków
 
     def movement(self, event):
 
