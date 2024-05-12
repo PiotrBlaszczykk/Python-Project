@@ -8,6 +8,7 @@ from cloud import Cloud
 from deska import Deska
 from kolumna import Kolumna
 from pauza import Pause
+from camera import Camera
 
 import time
 
@@ -17,13 +18,20 @@ class Game:
         pygame.init()
         pygame.display.set_caption('Escape from D17')
         self.player = player
+        self.static_world_elements = []
         self.grass = grass
+        self.addStaticElement(self.grass)
         self.deska1 = deska1
+        self.addStaticElement(self.deska1)
         self.deska2 = deska2
+        self.addStaticElement(self.deska2)
         self.deska3 = deska3
+        self.addStaticElement(self.deska3)
         self.kolumna = kolumna
-        # self.screen = pygame.display.set_mode((840, 680))
-        self.screen = pygame.display.set_mode((1280, 720))
+        self.addStaticElement(self.kolumna)
+        self.camera = Camera(self.static_world_elements)
+        self.screen = pygame.display.set_mode((840, 680))
+        #self.screen = pygame.display.set_mode((1280, 720))
         self.clock = pygame.time.Clock()
 
         self.paused = False
@@ -131,19 +139,21 @@ class Game:
                             self.paused = True
 
                 if not self.paused:
-                    self.player.movement(event)
+                    self.player.movement(event, self.camera)
 
             if not self.paused:
-                self.player.tick_update([self.grass, self.deska1, self.deska2, self.deska3, self.kolumna])
+                self.player.tick_update(self.static_world_elements, self.camera)
             else:
                 self.screen.blit(self.pause_button, self.pause_button_rect)
 
             self.clock.tick(fps)
             pygame.display.update()
+    def addStaticElement(self, element):
+        self.static_world_elements.append(element)
 
 
 
-curr_player = Player('player1', [0, 0], 'main character/main_char.png')
+curr_player = Player('player1', [420, 0], 'main character/main_char.png')
 grass = Grass('grass', [0, 664])
 
 deska1 = Deska('deska1', [700, 580])
@@ -151,6 +161,7 @@ deska2 = Deska('deska2', [200, 500])
 deska3 = Deska('deska3', [1000, 420])
 
 kolumna = Kolumna('kolumna', [1196, -208])
+
 
 
 
