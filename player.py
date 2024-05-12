@@ -45,12 +45,12 @@ class Player():
     def getAppearance(self):
         return self.appearance
 
-    def tick_update(self, objects, camera):
+    def tick_update(self, static_props, camera):
 
         #ZWAŻKA NA KOLEJNOŚĆ!
 
         #self.position[0] = int(self.position[0])
-        self.position[0] = 420
+        self.position[0] = 640
         self.position[1] = int(self.position[1])
         #w celu synchronizacji hitboxa z pozycja
         self.hitbox.topleft = self.position
@@ -83,20 +83,19 @@ class Player():
                 camera.setHorizontalVelocity(0)
 
         self.apply_gravity(camera)
-        self.handle_collisions(objects, camera)
+        self.handle_collisions(static_props, camera)
 
-        self.position[0] += self.horizontal_velocity
+        #self.position[0] += self.horizontal_velocity
         if not camera.isPlayerBlocked:
             camera.move()
 
 
-    def jump(self, camera):
+    def jump(self):
 
         if not self.airborne:
             self.airborne = True
             self.position[1] -= 10
             self.vertical_velocity = -12 * fps_ratio
-            #camera.setVerticalVelocity(-self.vertical_velocity)
 
 
 
@@ -112,7 +111,7 @@ class Player():
                 self.player_movement[2] = False
 
             if event.key == pygame.K_UP:
-                self.jump(camera)
+                self.jump()
 
         elif event.type == pygame.KEYUP:
 
@@ -162,7 +161,7 @@ class Player():
         else:
             return False
 
-    def handle_collisions(self, objects, camera):
+    def handle_collisions(self, static_props, camera):
 
         #funkcja handle_collision zwróci True, jeśli kolizja polega na tym, że
         #gracz stoi na ziemi, w przeciwnym wypadku zwraca False
@@ -171,7 +170,7 @@ class Player():
         self.airborne = True
         self.flag = False
         camera.isPlayerBlocked = False
-        for obj in objects:
+        for obj in static_props:
 
             if self.handle_collision(obj, camera):
                 self.airborne = False

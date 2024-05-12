@@ -1,14 +1,15 @@
 import pygame
 
-class Deska():
+class VoidProp():
 
-    def __init__(self, objectName, objectPosition):
-        self.imagePath = 'grafiki_dump/deska.png'
+    def __init__(self, objectName, objectPosition, imagePath, scale):
+        #name, postion, path wiadomo, scale - krotka (x, y)
+        self.imagePath = imagePath
         self.name = objectName
         self.position = objectPosition
         self.original_appearance = pygame.image.load(self.imagePath)
-        self.appearance = pygame.transform.scale(self.original_appearance, (152, 40))
-        self.hitbox = self.appearance.get_rect(topleft=self.position)
+        self.appearance = pygame.transform.scale(self.original_appearance, scale)
+
 
     def setPosition(self, objectPosition):
         self.position = objectPosition

@@ -2,16 +2,13 @@ import sys
 import pygame
 from player import Player
 import math
-from grass import Grass
-from map import Map
+from maps import *
 from cloud import Cloud
-from deska import Deska
-from kolumna import Kolumna
-from pauza import Pause
 
 class Camera():
     def __init__(self, map_objects):
-        self.objects_to_move = map_objects
+        self.static_props = map_objects[0]
+        self.void_props = map_objects[1]
         self.horizontalVelocity = 0
         self.verticalVelocity = 0
         self.isPlayerBlocked = False
@@ -22,8 +19,12 @@ class Camera():
         self.horizontalVelocity = value
 
     def move(self):
-        for object in self.objects_to_move:
+
+        for object in self.static_props:
             object.position[0] += self.horizontalVelocity
-            object.position[1] += self.verticalVelocity
             object.hitbox = object.appearance.get_rect(topleft=object.position)
+
+        for object in self.void_props:
+            object.position[0] += self.horizontalVelocity
+
 

@@ -2,43 +2,25 @@ import sys
 import pygame
 from player import Player
 import math
-from grass import Grass
-from maps import Map
 from cloud import Cloud
-from deska import Deska
-from kolumna import Kolumna
-from pauza import Pause
 from camera import Camera
 
-from map_functions.StaticProp import StaticProp
+from map_functions.MapLoader import MapLoader
 
-
-import time
 
 from config import fps, fps_ratio
 class Game:
-    def __init__(self, player, grass, deska1, deska2, deska3, kolumna):
+
+    def __init__(self, player):
+
         pygame.init()
         pygame.display.set_caption('Escape from D17')
         self.player = player
-        self.static_world_elements = []
-        self.grass = grass
-        self.addStaticElement(self.grass)
-        self.deska1 = deska1
-        self.addStaticElement(self.deska1)
-        self.deska2 = deska2
-        self.addStaticElement(self.deska2)
-        self.deska3 = deska3
-        self.addStaticElement(self.deska3)
-        self.kolumna = kolumna
-        self.addStaticElement(self.kolumna)
-        self.camera = Camera(self.static_world_elements)
         self.screen = pygame.display.set_mode((1280, 720))
-        #self.screen = pygame.display.set_mode((1280, 720))
+        self.mapLoader = MapLoader(self.screen)
         self.clock = pygame.time.Clock()
 
         self.paused = False
-
 
     def showMenu(self):
         playButton = pygame.image.load("menu/play_Button_transparent.png")
@@ -108,6 +90,16 @@ class Game:
             pygame.display.flip()
             self.clock.tick(60)
 
+
+    def reloadMap(self, mapFile):
+
+
+        self.map_objects = self.mapLoader.loadMap(mapFile)
+        self.static_props = self.map_objects[0]
+        self.void_props = self.map_objects[1]
+        self.player.position = [420, 0]
+        self.camera = Camera(self.map_objects)
+
     def run(self):
 
         self.pause_button = pygame.image.load("grafiki_dump/pauza.png")
@@ -115,19 +107,16 @@ class Game:
         self.pause_button_rect = self.pause_button.get_rect(
             center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
 
-        #staticprops, npcs, props = load_map(cwcw.json)
+        # self.static_props = self.mapLoader.loadMap("maps/test2")
+        # self.camera = Camera(self.static_props)
+
+        self.reloadMap("maps/test1")
+
 
         while True:
-            self.screen.fill((14, 219, 248))
 
+            self.mapLoader.render()
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
-
-            self.screen.blit(self.grass.getAppearance(), self.grass.getPosition())
-
-            self.screen.blit(self.deska1.getAppearance(), self.deska1.getPosition())
-            self.screen.blit(self.deska2.getAppearance(), self.deska2.getPosition())
-            self.screen.blit(self.deska3.getAppearance(), self.deska3.getPosition())
-            self.screen.blit(self.kolumna.getAppearance(), self.kolumna.getPosition())
 
 
             for event in pygame.event.get():
@@ -143,36 +132,38 @@ class Game:
                         else:
                             self.paused = True
 
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_r]:
+
+                    self.reloadMap("maps/test2")
+
+                    # R key is pressed
+                    # Your code for handling R key press goes here
+
+                elif keys[pygame.K_t]:
+
+                    self.reloadMap("maps/test1")
+
+
                 if not self.paused:
                     self.player.movement(event, self.camera)
 
             if not self.paused:
-                self.player.tick_update(self.static_world_elements, self.camera)
+                self.player.tick_update(self.static_props, self.camera)
             else:
                 self.screen.blit(self.pause_button, self.pause_button_rect)
 
             self.clock.tick(fps)
             pygame.display.update()
-    def addStaticElement(self, element):
-        self.static_world_elements.append(element)
+
 
 
 
 curr_player = Player('player1', [420, 0], 'main character/main_char.png')
-grass = Grass('grass', [0, 664])
-
-deska1 = Deska('deska1', [700, 580])
-deska2 = Deska('deska2', [200, 500])
-deska3 = Deska('deska3', [1000, 420])
-
-#kolumna = Kolumna('kolumna', [1196, -208])
-
-kolumna = StaticProp('kolumna', [1196, -208], 'grafiki_dump/wi_kolumna.png', (84, 872))
 
 
 
-
-game_instance = Game(curr_player, grass, deska1, deska2, deska3, kolumna)
+game_instance = Game(curr_player)
 game_instance.showMenu()
-#game_instance.run()
+
 
