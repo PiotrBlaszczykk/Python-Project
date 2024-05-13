@@ -1,0 +1,10 @@
+{
+  "StaticProps": [
+    {
+      "name": "grass",
+      "position": {"x": 0, "y": 664},
+      "imagePath": "minigames/falling_blocks/graphics/grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    }
+    ]
+}
