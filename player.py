@@ -40,57 +40,52 @@ class Player():
         self.max_vertical_velocity = 7 * fps_ratio
         self.min_vertical_velocity = -10 * fps_ratio
 
+        self.ticks_elapsed = 0
+        # self.change_outfit1 = 180
+        # self.change_outfit2 = 100
+
         self.airborne = True
-
-        self.scale = (138, 162)
-        self.ImageCache = ImageCache()
-
-        #graphicsDirectory = os.path.join(imageDirectory, "MCgraphics")
-        #imagePath = os.path.join(graphicsDirectory, "MC_standing_R_1.png")
-
-        # path = "MCgraphics/MC_standing_R_1.png"
-        # image = pygame.image.load(path)
-        # image = pygame.transform.scale(image, self.scale)
 
         self.images = PlayerImages()
 
         self.appearance = self.images.Moving_left1
         self.hitbox = self.appearance.get_rect(topleft=self.position)
+        # self.hitbox = pygame.Rect(self.position[0] + 18, self.position[1] + 9, 102, 144)
 
         self.playerState = PlayerState.STANDING_RIGHT
         self.last_move_was_right = True
-
-
-    # def check_player_state(self):
-    #
-    #     if self.airborne:
-    #
-    #         if self.horizontal_velocity >= 0:
-    #             self.playerState = PlayerState.AIRBORNE_RIGHT
-    #             self.appearance = self.images.Airborne_right
-    #
-    #         else:
-    #             self.playerState = PlayerState.AIRBORNE_LEFT
-    #             self.appearance = self.images.Airborne_left
-    #
-    #     else:
-    #
-    #         if player.horizontal_velocity == 0:
 
     def update_appearance(self):
 
         if self.playerState == PlayerState.AIRBORNE_RIGHT:
             self.appearance = self.images.Airborne_right
+
         elif self.playerState == PlayerState.AIRBORNE_LEFT:
             self.appearance = self.images.Airborne_left
+
         elif self.playerState == PlayerState.STANDING_RIGHT:
-            self.appearance = self.images.Standing_right1
+            if self.ticks_elapsed % 170 < 85:
+                self.appearance = self.images.Standing_right1
+            else:
+                self.appearance = self.images.Standing_right2
+
         elif self.playerState == PlayerState.STANDING_LEFT:
-            self.appearance = self.images.Standing_left1
+            if self.ticks_elapsed % 170 < 85:
+                self.appearance = self.images.Standing_left1
+            else:
+                self.appearance = self.images.Standing_left2
+
         elif self.playerState == PlayerState.MOVING_RIGHT:
-            self.appearance = self.images.Moving_right1
+            if self.ticks_elapsed % 80 < 40:
+                self.appearance = self.images.Moving_right1
+            else:
+                self.appearance = self.images.Moving_right2
+
         elif self.playerState == PlayerState.MOVING_LEFT:
-            self.appearance = self.images.Moving_left1
+            if self.ticks_elapsed % 80 < 40:
+                self.appearance = self.images.Moving_left1
+            else:
+                self.appearance = self.images.Moving_left2
 
     def setPosition(self, playerPosition):
         self.position = playerPosition
@@ -117,6 +112,14 @@ class Player():
 
     def tick_update(self, static_props, camera):
 
+        self.ticks_elapsed += 1
+
+        # if self.ticks_elapsed > self.change_outfit1:
+        #     self.ticks_elapsed = 0
+        #
+        # if self.ticks_elapsed > self.change_outfit1:
+        #     self.ticks_elapsed = 0
+
         #ZWAŻKA NA KOLEJNOŚĆ!
 
         #self.position[0] = int(self.position[0])
@@ -124,6 +127,7 @@ class Player():
         self.position[1] = int(self.position[1])
         #w celu synchronizacji hitboxa z pozycja
         self.hitbox.topleft = self.position
+
 
 
         if self.player_movement[2]:  # Ruch w lewo
