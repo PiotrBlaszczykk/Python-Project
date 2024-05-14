@@ -26,6 +26,7 @@ class Game:
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
+
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
@@ -103,12 +104,8 @@ class Game:
 
 
 
-
-curr_player = Player('player1', [420, 0], 'main character/main_char.png')
-
-
-
-game_instance = Game(curr_player)
-game_instance.showMenu()
-
+if __name__ == "__main__":
+    curr_player = Player('player1', [420, 0])
+    game_instance = Game(curr_player)
+    game_instance.showMenu()
 

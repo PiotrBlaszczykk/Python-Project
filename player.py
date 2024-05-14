@@ -1,12 +1,32 @@
 import pygame
 from config import fps_ratio
+import os
+from map_functions.ImageCache import ImageCache
+from player_details.playerImages import PlayerImages
+
+from enum import Enum
+
+class PlayerState(Enum):
+    STANDING_RIGHT = 1
+    STANDING_LEFT = 2
+    AIRBORNE_RIGHT = 3
+    AIRBORNE_LEFT = 4
+    MOVING_RIGHT = 5
+    MOVING_LEFT = 6
+    # STANDING_RIGHT2 = 7
+    # STANDING_LEFT2 = 8
+    # MOVING_RIGHT2 = 9
+    # MOVING_LEFT2 = 10
+
 class Player():
-    def __init__(self, playerName, playerPosition, imagePath):
+    def __init__(self, playerName, playerPosition):
         self.name = playerName
         self.position = playerPosition
-        self.appearance = pygame.image.load(imagePath)
-        self.hitbox = self.appearance.get_rect(topleft=self.position)
+
+        # self.appearance = pygame.image.load("MCgraphics/MC_standing_R_1.png")
+        # self.hitbox = self.appearance.get_rect(topleft=self.position)
         #self.inventory = []
+
         self.player_movement = [False, False, False, False]  #0-up, 1-down, 2-left, 3-right
 
         self.vertical_velocity = 0
@@ -21,6 +41,56 @@ class Player():
         self.min_vertical_velocity = -10 * fps_ratio
 
         self.airborne = True
+
+        self.scale = (138, 162)
+        self.ImageCache = ImageCache()
+
+        #graphicsDirectory = os.path.join(imageDirectory, "MCgraphics")
+        #imagePath = os.path.join(graphicsDirectory, "MC_standing_R_1.png")
+
+        # path = "MCgraphics/MC_standing_R_1.png"
+        # image = pygame.image.load(path)
+        # image = pygame.transform.scale(image, self.scale)
+
+        self.images = PlayerImages()
+
+        self.appearance = self.images.Moving_left1
+        self.hitbox = self.appearance.get_rect(topleft=self.position)
+
+        self.playerState = PlayerState.STANDING_RIGHT
+        self.last_move_was_right = True
+
+
+    # def check_player_state(self):
+    #
+    #     if self.airborne:
+    #
+    #         if self.horizontal_velocity >= 0:
+    #             self.playerState = PlayerState.AIRBORNE_RIGHT
+    #             self.appearance = self.images.Airborne_right
+    #
+    #         else:
+    #             self.playerState = PlayerState.AIRBORNE_LEFT
+    #             self.appearance = self.images.Airborne_left
+    #
+    #     else:
+    #
+    #         if player.horizontal_velocity == 0:
+
+    def update_appearance(self):
+
+        if self.playerState == PlayerState.AIRBORNE_RIGHT:
+            self.appearance = self.images.Airborne_right
+        elif self.playerState == PlayerState.AIRBORNE_LEFT:
+            self.appearance = self.images.Airborne_left
+        elif self.playerState == PlayerState.STANDING_RIGHT:
+            self.appearance = self.images.Standing_right1
+        elif self.playerState == PlayerState.STANDING_LEFT:
+            self.appearance = self.images.Standing_left1
+        elif self.playerState == PlayerState.MOVING_RIGHT:
+            self.appearance = self.images.Moving_right1
+        elif self.playerState == PlayerState.MOVING_LEFT:
+            self.appearance = self.images.Moving_left1
 
     def setPosition(self, playerPosition):
         self.position = playerPosition
@@ -58,12 +128,16 @@ class Player():
 
         if self.player_movement[2]:  # Ruch w lewo
             self.horizontal_velocity -= self.speed_up
+            self.last_move_was_right = False
+            self.playerState = PlayerState.MOVING_LEFT
             if self.horizontal_velocity < -self.max_horizontal_velocity:
                 self.horizontal_velocity = -self.max_horizontal_velocity
             camera.setHorizontalVelocity(-self.horizontal_velocity)
 
         elif self.player_movement[3]:  # Ruch w prawo
             self.horizontal_velocity += self.speed_up
+            self.last_move_was_right = True
+            self.playerState = PlayerState.MOVING_RIGHT
             if self.horizontal_velocity > self.max_horizontal_velocity:
                 self.horizontal_velocity = self.max_horizontal_velocity
             camera.setHorizontalVelocity(- self.horizontal_velocity)
@@ -84,6 +158,31 @@ class Player():
 
         self.apply_gravity(camera)
         self.handle_collisions(static_props, camera)
+
+
+        if self.horizontal_velocity == 0:
+            if self.last_move_was_right:
+                self.playerState = PlayerState.STANDING_RIGHT
+
+            else:
+                self.playerState = PlayerState.STANDING_LEFT
+
+        if self.airborne:
+            if self.horizontal_velocity > 0:
+                self.playerState = PlayerState.AIRBORNE_RIGHT
+
+            elif self.horizontal_velocity < 0:
+                self.playerState = PlayerState.AIRBORNE_LEFT
+
+            else:
+
+                if self.last_move_was_right:
+                    self.playerState = PlayerState.AIRBORNE_RIGHT
+                else:
+                    self.playerState = PlayerState.AIRBORNE_LEFT
+
+
+        self.update_appearance()
 
         #self.position[0] += self.horizontal_velocity
         if not camera.isPlayerBlocked:
