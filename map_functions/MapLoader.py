@@ -64,7 +64,8 @@ class MapLoader():
             for obj in self.map['Warps']:
                 position = [obj['position']['x'], obj['position']['y']]
                 destination = obj['destination']
-                new_object = Door(obj['name'], position, destination)
+                if obj['type'] == 'door':
+                    new_object = Door(obj['name'], position, destination)
                 self.interactive_props.append(new_object)
 
 

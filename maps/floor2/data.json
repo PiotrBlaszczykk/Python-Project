@@ -11,6 +11,7 @@
   "Warps": [
     {
       "name": "door_down",
+      "type": "door",
       "position": {
         "x": 861,
         "y": -22
@@ -19,6 +20,7 @@
     },
     {
       "name": "door_up",
+      "type": "door",
       "position": {
         "x": 219,
         "y": -22
