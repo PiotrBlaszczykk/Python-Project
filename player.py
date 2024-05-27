@@ -13,19 +13,11 @@ class PlayerState(Enum):
     AIRBORNE_LEFT = 4
     MOVING_RIGHT = 5
     MOVING_LEFT = 6
-    # STANDING_RIGHT2 = 7
-    # STANDING_LEFT2 = 8
-    # MOVING_RIGHT2 = 9
-    # MOVING_LEFT2 = 10
 
 class Player():
     def __init__(self, playerName, playerPosition):
         self.name = playerName
         self.position = playerPosition
-
-        # self.appearance = pygame.image.load("MCgraphics/MC_standing_R_1.png")
-        # self.hitbox = self.appearance.get_rect(topleft=self.position)
-        #self.inventory = []
 
         self.player_movement = [False, False, False, False]  #0-up, 1-down, 2-left, 3-right
 
@@ -41,8 +33,6 @@ class Player():
         self.min_vertical_velocity = -10 * fps_ratio
 
         self.ticks_elapsed = 0
-        # self.change_outfit1 = 180
-        # self.change_outfit2 = 100
 
         self.airborne = True
 
@@ -64,25 +54,25 @@ class Player():
             self.appearance = self.images.Airborne_left
 
         elif self.playerState == PlayerState.STANDING_RIGHT:
-            if self.ticks_elapsed % 170 < 85:
+            if self.ticks_elapsed % (170 / fps_ratio) < (85 / fps_ratio):
                 self.appearance = self.images.Standing_right1
             else:
                 self.appearance = self.images.Standing_right2
 
         elif self.playerState == PlayerState.STANDING_LEFT:
-            if self.ticks_elapsed % 170 < 85:
+            if self.ticks_elapsed % (170 / fps_ratio) < (85 / fps_ratio):
                 self.appearance = self.images.Standing_left1
             else:
                 self.appearance = self.images.Standing_left2
 
         elif self.playerState == PlayerState.MOVING_RIGHT:
-            if self.ticks_elapsed % 80 < 40:
+            if self.ticks_elapsed % (80 / fps_ratio) < (40 / fps_ratio):
                 self.appearance = self.images.Moving_right1
             else:
                 self.appearance = self.images.Moving_right2
 
         elif self.playerState == PlayerState.MOVING_LEFT:
-            if self.ticks_elapsed % 80 < 40:
+            if self.ticks_elapsed % (80 / fps_ratio) < (40 / fps_ratio):
                 self.appearance = self.images.Moving_left1
             else:
                 self.appearance = self.images.Moving_left2
@@ -101,7 +91,6 @@ class Player():
             #camera.setVerticalVelocity(-self.vertical_velocity)
 
             self.position[1] += self.vertical_velocity
-
 
 
     def getPosition(self):

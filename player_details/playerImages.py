@@ -1,15 +1,5 @@
 import pygame
 
-
-#
-# path = "MCgraphics/MC_standing_R_1.png"
-# image = pygame.image.load(path)
-# image = pygame.transform.scale(image, scale)
-#
-# StandingRight_1 = image
-
-import pygame
-
 def load_image(path):
     scale = (138, 162)
     image = pygame.image.load(path)

@@ -10,6 +10,7 @@ class Camera():
         self.static_props = map_objects[0]
         self.void_props = map_objects[1]
         self.dynamic_objects = map_objects[2]
+        self.interactive_props = map_objects[3]
         self.horizontalVelocity = 0
         self.verticalVelocity = 0
         self.isPlayerBlocked = False
@@ -31,5 +32,9 @@ class Camera():
         for object in self.dynamic_objects:
             object.position[0] += self.horizontalVelocity
             object.hitbox = object.appearance.get_rect(topleft=object.position)
+
+        for object in self.interactive_props:
+            object.position[0] += self.horizontalVelocity
+            object.hitbox = object.getHitbox()
 
 

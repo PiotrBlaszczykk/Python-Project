@@ -25,15 +25,6 @@
       "imagePath": "deska.png",
       "scale": {"x": 152, "y": 40}
     }
-  ],
-
-  "VoidProps": [
-    {
-      "name": "harnas",
-      "position": {"x": 0, "y":  700},
-      "imagePath": "bush.png",
-      "scale": {"x": 30, "y": 48}
-    }
-
   ]
+
 }
