@@ -22,7 +22,7 @@ class Box():
         self.appearance = self.idle
 
         self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 194)
-        self.interaction_hitbox = pygame.Rect(self.position[0] - 20, self.position[1] + 125, 228, 194)
+        self.interaction_hitbox = pygame.Rect(self.position[0] - 45, self.position[1] + 125, 258, 194)
         self.colliding = False
         self.pushed = False
 
@@ -71,7 +71,7 @@ class Box():
 
     def setHitbox(self):
         self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 194)
-        self.interaction_hitbox = pygame.Rect(self.position[0] - 20, self.position[1] + 125, 228, 194)
+        self.interaction_hitbox = pygame.Rect(self.position[0] - 45, self.position[1] + 125, 258, 194)
 
 
 

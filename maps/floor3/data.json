@@ -1051,99 +1051,17 @@
         "y": 642
       }
     },
+
+
     {
-      "name": "background_wall",
+      "name": "window",
       "position": {
         "x": 1404,
         "y": 0
       },
-      "imagePath": "background_wall.png",
+      "imagePath": "window.png",
       "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 1512,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 1620,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 1728,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 1836,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 1944,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 2052,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
-        "y": 642
-      }
-    },
-    {
-      "name": "background_wall",
-      "position": {
-        "x": 2160,
-        "y": 0
-      },
-      "imagePath": "background_wall.png",
-      "scale": {
-        "x": 108,
+        "x": 864,
         "y": 642
       }
     },
@@ -1447,6 +1365,21 @@
       "position": { "x": 101, "y": 0 },
       "imagePath": "four_up.png",
       "scale": { "x": 108, "y": 642 }
+    }
+  ],
+  "BackgroundProps": [
+
+    {
+      "name": "city",
+      "position": {
+        "x": 370,
+        "y": -200
+      },
+      "imagePath": "city.png",
+      "scale": {
+        "x": 1130,
+        "y": 1130
+      }
     }
   ]
 }

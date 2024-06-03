@@ -45,6 +45,7 @@ class minigame_falling_blocks:
             self.map_objects.append([]) #temporary until we fill void elements
             self.map_objects.append(self.dynamic_props)
             self.map_objects.append([]) #zeby sie nie wykruszylo, bo dodalem interactive props
+            self.map_objects.append([])  # tak samo dla background props
             self.camera = Camera(self.map_objects)
 
 

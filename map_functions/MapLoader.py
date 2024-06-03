@@ -7,6 +7,7 @@ from map_functions.StaticProp import StaticProp
 from map_functions.VoidProp import VoidProp
 from map_functions.InteractiveProps.Door import Door
 from map_functions.InteractiveProps.Box import Box
+from map_functions.BackgroundProp import BackgroundProp
 
 class MapLoader():
     def __init__(self, screen):
@@ -75,6 +76,16 @@ class MapLoader():
                 new_object = Box(obj['name'], position)
                 self.interactive_props.append(new_object)
 
+        self.background_props = []
+        if "BackgroundProps" in self.map:
+            for obj in self.map['BackgroundProps']:
+                position = [obj['position']['x'], obj['position']['y']]
+                scale = (obj['scale']['x'], obj['scale']['y'])
+                imagePath = os.path.join(graphicsDirectory, obj['imagePath'])
+                new_object = BackgroundProp(obj['name'], position, imagePath, scale, self.ImageCache)
+                self.background_props.append(new_object)
+
+
 
 
         self.dynamic_props = []                     #do edycji, tymczasowe żeby się program kompilował
@@ -83,6 +94,7 @@ class MapLoader():
         self.map_objects.append(self.void_props)
         self.map_objects.append(self.dynamic_props)
         self.map_objects.append(self.interactive_props)
+        self.map_objects.append(self.background_props)
 
         self.map_objects.append(self.spawn)
         return self.map_objects
@@ -92,6 +104,10 @@ class MapLoader():
 
 
         self.screen.fill(self.background_color)
+
+        for obj in self.background_props:
+            self.screen.blit(obj.getAppearance(), obj.getPosition())
+
         for obj in self.void_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 

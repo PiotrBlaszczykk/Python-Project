@@ -41,6 +41,7 @@ class Game:
         self.void_props = self.map_objects[1]
         #self.dynamic_props = self.map_objects[2]
         self.interactive_props = self.map_objects[3]
+        self.background_props = self.map_objects[4]
         self.player.position = self.map_objects[-1]
         self.camera = Camera(self.map_objects)
 
