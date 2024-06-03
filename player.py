@@ -85,10 +85,26 @@ class Player():
                 self.appearance = self.images.Moving_left2
 
         elif self.playerState == PlayerState.PUSHING_RIGHT:
-            self.appearance = self.images.Pushing_Right_idle
+
+            if self.horizontal_velocity == 0:
+                self.appearance = self.images.Pushing_Right_idle
+
+            else:
+                if self.ticks_elapsed % (80 / fps_ratio) < (40 / fps_ratio):
+                    self.appearance = self.images.Pushing_Right_1
+                else:
+                    self.appearance = self.images.Pushing_Right_2
 
         elif self.playerState == PlayerState.PUSHING_LEFT:
-            self.appearance = self.images.Pushing_Left_idle
+
+            if self.horizontal_velocity == 0:
+                self.appearance = self.images.Pushing_Left_idle
+
+            else:
+                if self.ticks_elapsed % (80 / fps_ratio) < (40 / fps_ratio):
+                    self.appearance = self.images.Pushing_Left_1
+                else:
+                    self.appearance = self.images.Pushing_Left_2
 
 
 
@@ -119,11 +135,6 @@ class Player():
         obj.pushed = True
         self.pushing = True
 
-        # if self.playerState == (PlayerState.STANDING_RIGHT or PlayerState.MOVING_RIGHT or PlayerState.AIRBORNE_RIGHT):
-        #     self.playerState= PlayerState.PUSHING_RIGHT
-        # elif self.playerState == (PlayerState.STANDING_LEFT or PlayerState.MOVING_LEFT or PlayerState.AIRBORNE_LEFT):
-        #     self.playerState = PlayerState.PUSHING_LEFT
-
         if self.last_move_was_right:
             self.playerState= PlayerState.PUSHING_RIGHT
         else:
@@ -145,6 +156,8 @@ class Player():
     def tick_update(self, static_props, camera, boxes):
 
         self.ticks_elapsed += 1
+        if self.ticks_elapsed == 1360: #NWW 170 i 80
+            self.ticks_elapsed = 0
 
         # if self.ticks_elapsed > self.change_outfit1:
         #     self.ticks_elapsed = 0
