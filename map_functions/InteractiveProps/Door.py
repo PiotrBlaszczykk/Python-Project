@@ -3,7 +3,7 @@ from config import fps_ratio
 
 def load_image(path):
     scale = (321, 642)
-    image = pygame.image.load(path)
+    image = pygame.image.load(path).convert_alpha()
     image = pygame.transform.scale(image, scale)
     return image
 

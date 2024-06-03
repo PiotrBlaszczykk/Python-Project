@@ -6,6 +6,7 @@ from map_functions.ImageCache import ImageCache
 from map_functions.StaticProp import StaticProp
 from map_functions.VoidProp import VoidProp
 from map_functions.InteractiveProps.Door import Door
+from map_functions.InteractiveProps.Box import Box
 
 class MapLoader():
     def __init__(self, screen):
@@ -59,7 +60,7 @@ class MapLoader():
 
         self.interactive_props = []
 
-        self.doors = []
+        #self.doors = []
         if 'Warps' in self.map:
             for obj in self.map['Warps']:
                 position = [obj['position']['x'], obj['position']['y']]
@@ -67,6 +68,13 @@ class MapLoader():
                 if obj['type'] == 'door':
                     new_object = Door(obj['name'], position, destination)
                 self.interactive_props.append(new_object)
+
+        if "Boxes" in self.map:
+            for obj in self.map['Boxes']:
+                position = [obj['position']['x'], obj['position']['y']]
+                new_object = Box(obj['name'], position)
+                self.interactive_props.append(new_object)
+
 
 
         self.dynamic_props = []                     #do edycji, tymczasowe żeby się program kompilował
@@ -95,6 +103,7 @@ class MapLoader():
 
         # for obj in self.interactive_props:
         #     pygame.draw.rect(self.screen, (255, 0, 0), obj.hitbox, 10)
+
         #do debugowania
 
 

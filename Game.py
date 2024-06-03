@@ -26,6 +26,7 @@ class Game:
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
+
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
@@ -38,26 +39,40 @@ class Game:
         self.map_objects = self.mapLoader.loadMap(mapFile)
         self.static_props = self.map_objects[0]
         self.void_props = self.map_objects[1]
-        self.player.position = [420, 0]
+        #self.dynamic_props = self.map_objects[2]
+        self.interactive_props = self.map_objects[3]
+        self.player.position = self.map_objects[-1]
         self.camera = Camera(self.map_objects)
 
+        self.boxes = []
+
+        for obj in self.interactive_props:
+            if obj.type == "box":
+                self.boxes.append(obj)
+
     def run(self):
+
+        self.ticks_ellapsed = 0
+
         self.pause_button = pygame.image.load("grafiki_dump/pauza.png")
         self.pause_button = pygame.transform.scale(self.pause_button, (471, 78))
         self.pause_button_rect = self.pause_button.get_rect(
             center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
 
+
         # self.static_props = self.mapLoader.loadMap("maps/test2")
         # self.camera = Camera(self.static_props)
 
-        self.reloadMap("maps/test1")
+        self.reloadMap("maps/floor4")
 
 
         while True:
 
             self.mapLoader.render()
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
+            self.e_pressed = False
 
+            #pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
 
             for event in pygame.event.get():
 
@@ -84,6 +99,10 @@ class Game:
 
                     self.reloadMap("maps/test1")
 
+                elif keys[pygame.K_e]:
+
+                    self.e_pressed = True
+
                 elif keys[pygame.K_u]:
                     self.show_falling_blocks()
                     break
@@ -93,22 +112,33 @@ class Game:
                     self.player.movement(event, self.camera)
 
             if not self.paused:
-                self.player.tick_update(self.static_props, self.camera)
+
+                self.player.tick_update(self.static_props, self.camera, self.boxes)
+
+                for obj in self.interactive_props:
+                    obj.tick_update(self.player)
+                    if obj.colliding and self.e_pressed:
+                        if obj.type == "warp":
+                            self.reloadMap(obj.destination)
+
+                        elif obj.type == "box":
+                            if not self.player.pushing:
+                                self.player.start_pushing(obj)
+
+                            else:
+                                self.player.stop_pushing()
             else:
                 self.screen.blit(self.pause_button, self.pause_button_rect)
 
             self.clock.tick(fps)
+            self.ticks_ellapsed += 1
             pygame.display.update()
 
 
 
 
-
-curr_player = Player('player1', [420, 0], 'main character/main_char.png')
-
-
-
-game_instance = Game(curr_player)
-game_instance.showMenu()
-
+if __name__ == "__main__":
+    curr_player = Player('player1', [420, 0])
+    game_instance = Game(curr_player)
+    game_instance.showMenu()
 

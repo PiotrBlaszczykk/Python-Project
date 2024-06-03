@@ -13,6 +13,8 @@ class PlayerState(Enum):
     AIRBORNE_LEFT = 4
     MOVING_RIGHT = 5
     MOVING_LEFT = 6
+    PUSHING_RIGHT = 8
+    PUSHING_LEFT = 9
 
 class Player():
     def __init__(self, playerName, playerPosition):
@@ -26,6 +28,7 @@ class Player():
 
         #stałe * fps_ratio, przyspiesznia * fps_ratio ^ 2
         self.max_horizontal_velocity = 5 * fps_ratio
+        self.max_pushing_velocity = 2.5 * fps_ratio
         self.gravity = 0.3 * (fps_ratio**2)
         self.friction = 0.15 * (fps_ratio**2)
         self.speed_up = 1.8 * (fps_ratio**2)
@@ -35,17 +38,21 @@ class Player():
         self.ticks_elapsed = 0
 
         self.airborne = True
+        self.pushing = False
+        self.moving_object = None
 
         self.images = PlayerImages()
 
         self.appearance = self.images.Moving_left1
-        self.hitbox = self.appearance.get_rect(topleft=self.position)
+        #self.hitbox = self.appearance.get_rect(topleft=self.position)
         # self.hitbox = pygame.Rect(self.position[0] + 18, self.position[1] + 9, 102, 144)
+        self.hitbox = pygame.Rect(self.position[0] + 15, self.position[1], 108, 162)
 
         self.playerState = PlayerState.STANDING_RIGHT
         self.last_move_was_right = True
 
     def update_appearance(self):
+
 
         if self.playerState == PlayerState.AIRBORNE_RIGHT:
             self.appearance = self.images.Airborne_right
@@ -77,6 +84,14 @@ class Player():
             else:
                 self.appearance = self.images.Moving_left2
 
+        elif self.playerState == PlayerState.PUSHING_RIGHT:
+            self.appearance = self.images.Pushing_Right_idle
+
+        elif self.playerState == PlayerState.PUSHING_LEFT:
+            self.appearance = self.images.Pushing_Left_idle
+
+
+
     def setPosition(self, playerPosition):
         self.position = playerPosition
 
@@ -99,7 +114,35 @@ class Player():
     def getAppearance(self):
         return self.appearance
 
-    def tick_update(self, static_props, camera):
+    def start_pushing(self, obj):
+        self.moving_object = obj
+        obj.pushed = True
+        self.pushing = True
+
+        # if self.playerState == (PlayerState.STANDING_RIGHT or PlayerState.MOVING_RIGHT or PlayerState.AIRBORNE_RIGHT):
+        #     self.playerState= PlayerState.PUSHING_RIGHT
+        # elif self.playerState == (PlayerState.STANDING_LEFT or PlayerState.MOVING_LEFT or PlayerState.AIRBORNE_LEFT):
+        #     self.playerState = PlayerState.PUSHING_LEFT
+
+        if self.last_move_was_right:
+            self.playerState= PlayerState.PUSHING_RIGHT
+        else:
+            self.playerState = PlayerState.PUSHING_LEFT
+
+
+    def stop_pushing(self):
+        self.pushing = False
+        self.moving_object.pushed = False
+        self.moving_object = None
+
+        if self.playerState == PlayerState.PUSHING_RIGHT:
+            self.playerState = PlayerState.STANDING_RIGHT
+        else:
+            self.playerState = PlayerState.STANDING_LEFT
+
+        self.horizontal_velocity = 0
+
+    def tick_update(self, static_props, camera, boxes):
 
         self.ticks_elapsed += 1
 
@@ -115,24 +158,55 @@ class Player():
         self.position[0] = 640
         self.position[1] = int(self.position[1])
         #w celu synchronizacji hitboxa z pozycja
-        self.hitbox.topleft = self.position
 
+
+        if self.pushing:
+            if self.playerState == PlayerState.PUSHING_RIGHT:
+                self.hitbox = pygame.Rect(self.position[0] + 15, self.position[1], 290, 162)
+            else:
+                self.hitbox = pygame.Rect(self.position[0] - 170, self.position[1], 290, 162)
+        else:
+            self.hitbox = pygame.Rect(self.position[0] + 15, self.position[1], 108, 162)
+
+        #self.hitbox.topleft = self.position
 
 
         if self.player_movement[2]:  # Ruch w lewo
-            self.horizontal_velocity -= self.speed_up
-            self.last_move_was_right = False
-            self.playerState = PlayerState.MOVING_LEFT
+
+            if not self.pushing:
+                self.horizontal_velocity -= self.speed_up
+                self.last_move_was_right = False
+                self.playerState = PlayerState.MOVING_LEFT
+            elif self.playerState == PlayerState.PUSHING_LEFT:
+                self.horizontal_velocity -= (self.speed_up * 0.5)
+                self.last_move_was_right = False
+
+
             if self.horizontal_velocity < -self.max_horizontal_velocity:
                 self.horizontal_velocity = -self.max_horizontal_velocity
+
+            if self.pushing and self.horizontal_velocity < self.max_pushing_velocity:
+                self.horizontal_velocity = -self.max_pushing_velocity
+
             camera.setHorizontalVelocity(-self.horizontal_velocity)
 
         elif self.player_movement[3]:  # Ruch w prawo
-            self.horizontal_velocity += self.speed_up
-            self.last_move_was_right = True
-            self.playerState = PlayerState.MOVING_RIGHT
+
+            if not self.pushing:
+                self.horizontal_velocity += self.speed_up
+                self.last_move_was_right = True
+                self.playerState = PlayerState.MOVING_RIGHT
+            elif self.playerState == PlayerState.PUSHING_RIGHT:
+                self.horizontal_velocity += (self.speed_up * 0.5)
+                self.last_move_was_right = True
+
+
             if self.horizontal_velocity > self.max_horizontal_velocity:
                 self.horizontal_velocity = self.max_horizontal_velocity
+
+            if self.pushing and self.horizontal_velocity > self.max_pushing_velocity:
+                self.horizontal_velocity = self.max_pushing_velocity
+
             camera.setHorizontalVelocity(- self.horizontal_velocity)
 
         else:
@@ -150,29 +224,41 @@ class Player():
                 camera.setHorizontalVelocity(0)
 
         self.apply_gravity(camera)
-        self.handle_collisions(static_props, camera)
+
+        self.handle_collisions(static_props, camera, boxes)
 
 
-        if self.horizontal_velocity == 0:
-            if self.last_move_was_right:
-                self.playerState = PlayerState.STANDING_RIGHT
+        if not self.pushing:
 
-            else:
-                self.playerState = PlayerState.STANDING_LEFT
-
-        if self.airborne:
-            if self.horizontal_velocity > 0:
-                self.playerState = PlayerState.AIRBORNE_RIGHT
-
-            elif self.horizontal_velocity < 0:
-                self.playerState = PlayerState.AIRBORNE_LEFT
-
-            else:
-
+            if self.horizontal_velocity == 0:
                 if self.last_move_was_right:
-                    self.playerState = PlayerState.AIRBORNE_RIGHT
+                    self.playerState = PlayerState.STANDING_RIGHT
+
                 else:
+                    self.playerState = PlayerState.STANDING_LEFT
+
+            if self.airborne:
+                if self.horizontal_velocity > 0:
+                    self.playerState = PlayerState.AIRBORNE_RIGHT
+
+                elif self.horizontal_velocity < 0:
                     self.playerState = PlayerState.AIRBORNE_LEFT
+
+                else:
+
+                    if self.last_move_was_right:
+                        self.playerState = PlayerState.AIRBORNE_RIGHT
+                    else:
+                        self.playerState = PlayerState.AIRBORNE_LEFT
+
+        # if self.pushing:
+        #     if self.last_move_was_right:
+        #         self.playerState = PlayerState.PUSHING_RIGHT
+        #     else:
+        #         self.playerState = PlayerState.PUSHING_LEFT
+
+        if self.pushing:
+            self.moving_object.move(self.horizontal_velocity)
 
 
         self.update_appearance()
@@ -195,14 +281,14 @@ class Player():
 
         if event.type == pygame.KEYDOWN:
 
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and self.playerState != PlayerState.PUSHING_RIGHT:
                 self.player_movement[2] = True
                 self.player_movement[3] = False
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and self.playerState != PlayerState.PUSHING_LEFT:
                 self.player_movement[3] = True
                 self.player_movement[2] = False
 
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and not self.pushing:
                 self.jump()
 
         elif event.type == pygame.KEYUP:
@@ -253,7 +339,7 @@ class Player():
         else:
             return False
 
-    def handle_collisions(self, static_props, camera):
+    def handle_collisions(self, static_props, camera, boxes):
 
         #funkcja handle_collision zwróci True, jeśli kolizja polega na tym, że
         #gracz stoi na ziemi, w przeciwnym wypadku zwraca False
@@ -266,6 +352,12 @@ class Player():
 
             if self.handle_collision(obj, camera):
                 self.airborne = False
+
+        if not self.pushing:
+            for obj in boxes:
+
+                if self.handle_collision(obj, camera):
+                    self.airborne = False
 
         self.hitbox.topleft = self.position
         if self.flag:

@@ -8,6 +8,7 @@
     "x": 420,
     "y": 400
   },
+
   "Warps": [
     {
       "name": "door_down",
@@ -19,6 +20,18 @@
       "destination": "maps/floor3"
     }
   ],
+
+  "Boxes": [
+    {
+      "name": "box",
+      "position": {
+        "x": 1600,
+        "y": 314
+      }
+    }
+
+  ],
+
   "StaticProps": [
     {
       "name": "wi_column_right",

@@ -21,3 +21,6 @@ class PlayerImages():
         self.Moving_right2 = load_image("MCgraphics/MC_walking_R_2.png")
         self.Moving_left2 = load_image("MCgraphics/MC_walking_L_2.png")
 
+        self.Pushing_Right_idle = load_image("MCgraphics/MC_pushing_R_idle.png")
+        self.Pushing_Left_idle = load_image("MCgraphics/MC_pushing_L_idle.png")
+
