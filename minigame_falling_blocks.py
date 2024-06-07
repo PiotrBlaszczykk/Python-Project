@@ -31,14 +31,14 @@ class minigame_falling_blocks:
         self.ImageCache = ImageCache()
         with open('minigames/falling_blocks/data.json', 'r') as file:
             self.map = json.load(file)
-            static_elements = self.map["static_props"]
+            static_elements = self.map["StaticProps"]
             for obj in static_elements:
                 position = [obj['position']['x'], obj['position']['y']]
                 scale = (obj['scale']['x'], obj['scale']['y'])
                 imagePath = obj['imagePath']
                 new_object = StaticProp(obj['name'], position, imagePath, scale, self.ImageCache)
-                self.static_props.append(new_object)
-                self.map_objects.append(self.static_props)
+                self.static_props[new_object.name] = new_object
+                self.map_objects["static_props"] = self.static_props
 
             for i in range(self.dynamic_elements_amount):
                 self.dynamicElementGenerate()
