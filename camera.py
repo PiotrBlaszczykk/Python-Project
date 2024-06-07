@@ -7,11 +7,11 @@ from cloud import Cloud
 
 class Camera():
     def __init__(self, map_objects):
-        self.static_props = map_objects[0]
-        self.void_props = map_objects[1]
-        self.dynamic_objects = map_objects[2]
-        self.interactive_props = map_objects[3]
-        self.background_props = map_objects[4]
+        self.static_props = map_objects["static_props"]
+        self.void_props = map_objects["void_props"]
+        self.dynamic_props = map_objects["dynamic_props"]
+        self.interactive_props = map_objects["interactive_props"]
+        self.background_props = map_objects["background_props"]
         self.horizontalVelocity = 0
         self.verticalVelocity = 0
         self.isPlayerBlocked = False
@@ -30,7 +30,7 @@ class Camera():
         for object in self.void_props:
             object.position[0] += self.horizontalVelocity
 
-        for object in self.dynamic_objects:
+        for object in self.dynamic_props:
             object.position[0] += self.horizontalVelocity
             object.hitbox = object.appearance.get_rect(topleft=object.position)
 

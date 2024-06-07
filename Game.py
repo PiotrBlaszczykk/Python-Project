@@ -23,26 +23,26 @@ class Game:
         self.mapLoader = MapLoader(self.screen)
         self.clock = pygame.time.Clock()
         self.menu = Menu(self.screen, self.clock, self)
-        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        #self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
 
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
-    def show_falling_blocks(self):
-        self.mapLoader.loadMisc(self.falling_blocks)
+    # def show_falling_blocks(self):
+    #     self.mapLoader.loadMisc(self.falling_blocks)
 
     def reloadMap(self, mapFile):
 
 
         self.map_objects = self.mapLoader.loadMap(mapFile)
-        self.static_props = self.map_objects[0]
-        self.void_props = self.map_objects[1]
-        #self.dynamic_props = self.map_objects[2]
-        self.interactive_props = self.map_objects[3]
-        self.background_props = self.map_objects[4]
-        self.player.position = self.map_objects[-1]
+        self.static_props = self.map_objects["static_props"]
+        self.void_props = self.map_objects["void_props"]
+        self.dynamic_props = self.map_objects["dynamic_props"]
+        self.interactive_props = self.map_objects["interactive_props"]
+        self.background_props = self.map_objects["background_props"]
+        self.player.position = self.map_objects["spawn"]
         self.camera = Camera(self.map_objects)
 
         self.boxes = []

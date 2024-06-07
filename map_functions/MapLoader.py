@@ -16,7 +16,7 @@ class MapLoader():
         #objects: [StaticProps, VoidProps, DyamicProps, InteractiveProps, Spawn]
 
     def loadMap(self, directory):
-        self.map_objects = []
+        self.map_objects = {}
         jsonPath = os.path.join(directory, "data.json")
         with open(jsonPath, 'r') as file:
             self.map = json.load(file)
@@ -32,6 +32,7 @@ class MapLoader():
             )
         else:
             self.background_color = (255, 255, 255)
+
 
         self.spawn = [0, 0]
         if "Spawn" in self.map:
@@ -90,13 +91,21 @@ class MapLoader():
 
         self.dynamic_props = []                     #do edycji, tymczasowe żeby się program kompilował
 
-        self.map_objects.append(self.static_props)
-        self.map_objects.append(self.void_props)
-        self.map_objects.append(self.dynamic_props)
-        self.map_objects.append(self.interactive_props)
-        self.map_objects.append(self.background_props)
+        # self.map_objects.append(self.static_props)
+        # self.map_objects.append(self.void_props)
+        # self.map_objects.append(self.dynamic_props)
+        # self.map_objects.append(self.interactive_props)
+        # self.map_objects.append(self.background_props)
 
-        self.map_objects.append(self.spawn)
+        # self.map_objects.append(self.spawn)
+
+        self.map_objects["static_props"] = self.static_props
+        self.map_objects["void_props"] = self.void_props
+        self.map_objects["dynamic_props"] = self.dynamic_props
+        self.map_objects["interactive_props"] = self.interactive_props
+        self.map_objects["background_props"] = self.background_props
+        self.map_objects["spawn"] = self.spawn
+
         return self.map_objects
 
 

@@ -23,7 +23,7 @@ class minigame_falling_blocks:
         self.dynamic_elements_amount = 2
         self.player = player
         self.camera = None
-        self.map_objects = []
+        self.map_objects = {}
         self.motherClass = motherClass
         self.loadMap()
 
@@ -31,7 +31,7 @@ class minigame_falling_blocks:
         self.ImageCache = ImageCache()
         with open('minigames/falling_blocks/data.json', 'r') as file:
             self.map = json.load(file)
-            static_elements = self.map['StaticProps']
+            static_elements = self.map["static_props"]
             for obj in static_elements:
                 position = [obj['position']['x'], obj['position']['y']]
                 scale = (obj['scale']['x'], obj['scale']['y'])
@@ -47,6 +47,8 @@ class minigame_falling_blocks:
             self.map_objects.append([]) #zeby sie nie wykruszylo, bo dodalem interactive props
             self.map_objects.append([])  # tak samo dla background props
             self.camera = Camera(self.map_objects)
+
+            self.map
 
 
     def dynamicElementGenerate(self):
