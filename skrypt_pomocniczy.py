@@ -2,10 +2,10 @@ import json
 import os
 
 # Ścieżka do pliku JSON
-file_path = "Swędzioł nic tutaj nie ruszaj"
-przesuniecie = 540
+file_path = "SWEDZIOL NIE RUSZAJ"
+przesuniecie = 0
 
-def shift_positions(file_path):
+def shift_positions_and_update_scale(file_path):
     # Wczytanie danych JSON z pliku
     with open(file_path, 'r') as file:
         data = json.load(file)
@@ -13,12 +13,14 @@ def shift_positions(file_path):
     # Klucze do aktualizacji
     keys_to_update = ['Spawn', 'Warps', 'StaticProps', 'VoidProps']
 
-    # Przesunięcie wartości 'x' o 600 w prawo
+    # Przesunięcie wartości 'x' o 540 w prawo i zmiana wartości 'scale'
     for key in keys_to_update:
         if key in data:
             for item in data[key]:
                 if 'position' in item:
                     item['position']['x'] += przesuniecie
+                if 'scale' in item:
+                    item['scale'] = {'x': 108, 'y': 789}
 
     # Zapisanie zmodyfikowanych danych do pliku
     with open(file_path, 'w') as file:
@@ -29,4 +31,4 @@ def shift_positions(file_path):
 
 
 # Wywołanie funkcji z podaną ścieżką
-shift_positions(file_path)
+shift_positions_and_update_scale(file_path)

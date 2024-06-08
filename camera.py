@@ -13,6 +13,7 @@ class Camera():
         self.interactive_props = map_objects["interactive_props"]
         self.background_props = map_objects["background_props"]
         self.animated_props = map_objects["animated_props"]
+        self.diss_blocks = map_objects["diss_blocks"]
         self.horizontalVelocity = 0
         self.verticalVelocity = 0
         self.isPlayerBlocked = False
@@ -39,6 +40,10 @@ class Camera():
             object.hitbox = object.appearance.get_rect(topleft=object.position)
 
         for object in self.interactive_props:
+            object.position[0] += self.horizontalVelocity
+            object.hitbox = object.getHitbox()
+
+        for object in self.diss_blocks:
             object.position[0] += self.horizontalVelocity
             object.hitbox = object.getHitbox()
 

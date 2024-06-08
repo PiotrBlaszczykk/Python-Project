@@ -12,6 +12,7 @@ from map_functions.BackgroundProp import BackgroundProp
 from map_functions.AnimatedProp import AnimatedProp
 from map_functions.InteractiveProps.Ladder import Ladder
 from map_functions.InteractiveProps.Vent import Vent
+from map_functions.DissBlock import DissBlock
 
 class MapLoader():
     def __init__(self, screen):
@@ -105,6 +106,15 @@ class MapLoader():
                 new_object = AnimatedProp(obj['name'], position, imagePath1, imagePath2, scale, self.ImageCache)
                 self.animated_props.append(new_object)
 
+        self.diss_blocks = []
+        if "DissBlocks" in self.map:
+            for obj in self.map['DissBlocks']:
+                position = [obj['position']['x'], obj['position']['y']]
+                scale = (obj['scale']['x'], obj['scale']['y'])
+                imagePath = os.path.join(graphicsDirectory, obj['imagePath'])
+                new_object = DissBlock(obj['name'], position, imagePath, scale, self.ImageCache)
+                self.diss_blocks.append(new_object)
+
 
 
 
@@ -125,6 +135,7 @@ class MapLoader():
         self.map_objects["background_props"] = self.background_props
         self.map_objects["spawn"] = self.spawn
         self.map_objects["animated_props"] = self.animated_props
+        self.map_objects["diss_blocks"] = self.diss_blocks
 
         return self.map_objects
 
@@ -146,6 +157,9 @@ class MapLoader():
         for obj in self.static_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 
+        for obj in self.diss_blocks:
+            self.screen.blit(obj.getAppearance(), obj.getPosition())
+
         for obj in self.interactive_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 
@@ -161,6 +175,10 @@ class MapLoader():
         self.map = None
         self.static_props = []
         self.void_props = []
+        self.diss_blocks =[]
+        self.background_props =[]
+        self.animated_props =[]
+        self.interactive_props =[]
 
     def loadMisc(self, passedClass):
         self.resetAttributes()

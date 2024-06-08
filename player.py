@@ -153,7 +153,7 @@ class Player():
 
         self.horizontal_velocity = 0
 
-    def tick_update(self, static_props, camera, boxes):
+    def tick_update(self, static_props, camera, boxes, diss_blocks):
 
         self.ticks_elapsed += 1
         if self.ticks_elapsed == 1360: #NWW 170 i 80
@@ -238,7 +238,7 @@ class Player():
 
         self.apply_gravity(camera)
 
-        self.handle_collisions(static_props, camera, boxes)
+        self.handle_collisions(static_props, camera, boxes, diss_blocks)
 
 
         if not self.pushing:
@@ -352,7 +352,7 @@ class Player():
         else:
             return False
 
-    def handle_collisions(self, static_props, camera, boxes):
+    def handle_collisions(self, static_props, camera, boxes, diss_blocs):
 
         #funkcja handle_collision zwróci True, jeśli kolizja polega na tym, że
         #gracz stoi na ziemi, w przeciwnym wypadku zwraca False
@@ -362,6 +362,11 @@ class Player():
         self.flag = False
         camera.isPlayerBlocked = False
         for obj in static_props:
+
+            if self.handle_collision(obj, camera):
+                self.airborne = False
+
+        for obj in diss_blocs:
 
             if self.handle_collision(obj, camera):
                 self.airborne = False

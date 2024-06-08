@@ -44,6 +44,7 @@ class Game:
         self.background_props = self.map_objects["background_props"]
         self.player.position = self.map_objects["spawn"]
         self.animated_props = self.map_objects["animated_props"]
+        self.diss_blocks = self.map_objects["diss_blocks"]
         self.camera = Camera(self.map_objects)
         self.current_map = mapFile
 
@@ -69,7 +70,7 @@ class Game:
         # self.static_props = self.mapLoader.loadMap("maps/test2")
         # self.camera = Camera(self.static_props)
 
-        self.reloadMap("maps/floor4")
+        self.reloadMap("maps/mario")
 
 
         while True:
@@ -119,7 +120,7 @@ class Game:
 
             if not self.paused:
 
-                self.player.tick_update(self.static_props, self.camera, self.boxes)
+                self.player.tick_update(self.static_props, self.camera, self.boxes, self.diss_blocks)
 
                 if self.player.position[1] > 900:
                     self.reloadMap(self.current_map)
@@ -139,6 +140,9 @@ class Game:
                                 self.player.stop_pushing()
 
                 for obj in self.animated_props:
+                    obj.tick_update()
+
+                for obj in self.diss_blocks:
                     obj.tick_update()
 
             else:
