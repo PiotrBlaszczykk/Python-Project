@@ -26,6 +26,16 @@
         "y": -22
       },
       "destination": "maps/floor4"
+    },
+
+    {
+      "name": "ladder",
+      "type": "ladder",
+      "position": {
+        "x": -2300,
+        "y": -50
+      },
+      "destination": "maps/easter_egg"
     }
   ],
 

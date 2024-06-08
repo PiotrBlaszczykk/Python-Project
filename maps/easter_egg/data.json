@@ -402,6 +402,19 @@
         "x": 186,
         "y": 122
       }
+    },
+
+    {
+      "name": "wacek",
+      "position": {
+        "x": 600,
+        "y": 180
+      },
+      "imagePath": "Wacus.png",
+      "scale": {
+        "x": 199,
+        "y": 271
+      }
     }
   ],
 

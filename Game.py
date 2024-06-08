@@ -69,7 +69,7 @@ class Game:
         # self.static_props = self.mapLoader.loadMap("maps/test2")
         # self.camera = Camera(self.static_props)
 
-        self.reloadMap("maps/easter_egg")
+        self.reloadMap("maps/floor4")
 
 
         while True:
@@ -120,6 +120,9 @@ class Game:
             if not self.paused:
 
                 self.player.tick_update(self.static_props, self.camera, self.boxes)
+
+                if self.player.position[1] > 900:
+                    self.reloadMap(self.current_map)
 
                 for obj in self.interactive_props:
 
