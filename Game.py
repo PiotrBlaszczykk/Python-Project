@@ -23,15 +23,15 @@ class Game:
         self.mapLoader = MapLoader(self.screen)
         self.clock = pygame.time.Clock()
         self.menu = Menu(self.screen, self.clock, self)
-        #self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
 
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
-    # def show_falling_blocks(self):
-    #     self.mapLoader.loadMisc(self.falling_blocks)
+    def show_falling_blocks(self):
+        self.mapLoader.loadMisc(self.falling_blocks)
 
     def reloadMap(self, mapFile):
 
@@ -66,9 +66,6 @@ class Game:
         self.pause_button_rect = self.pause_button.get_rect(
             center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
 
-
-        # self.static_props = self.mapLoader.loadMap("maps/test2")
-        # self.camera = Camera(self.static_props)
 
         self.reloadMap("maps/mario")
 
