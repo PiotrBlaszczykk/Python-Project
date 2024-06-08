@@ -11,6 +11,7 @@ from map_functions.InteractiveProps.BoxBig import BoxBig
 from map_functions.BackgroundProp import BackgroundProp
 from map_functions.AnimatedProp import AnimatedProp
 from map_functions.InteractiveProps.Ladder import Ladder
+from map_functions.InteractiveProps.Vent import Vent
 
 class MapLoader():
     def __init__(self, screen):
@@ -74,6 +75,8 @@ class MapLoader():
                     new_object = Door(obj['name'], position, destination)
                 elif obj['type'] == 'ladder':
                     new_object = Ladder(obj['name'], position, destination)
+                elif obj['type'] == 'vent':
+                    new_object = Vent(obj['name'], position, destination)
                 self.interactive_props.append(new_object)
 
         if "Boxes" in self.map:
