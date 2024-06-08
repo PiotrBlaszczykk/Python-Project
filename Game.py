@@ -47,6 +47,9 @@ class Game:
         self.camera = Camera(self.map_objects)
         self.current_map = mapFile
 
+        if self.player.pushing:
+            self.player.stop_pushing()
+
         self.boxes = []
 
         for obj in self.interactive_props:
@@ -66,7 +69,7 @@ class Game:
         # self.static_props = self.mapLoader.loadMap("maps/test2")
         # self.camera = Camera(self.static_props)
 
-        self.reloadMap("maps/floor4")
+        self.reloadMap("maps/easter_egg")
 
 
         while True:
