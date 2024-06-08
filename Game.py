@@ -31,6 +31,7 @@ class Game:
         self.mapLoader.loadMisc(self.menu)
 
     def show_falling_blocks(self):
+        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.mapLoader.loadMisc(self.falling_blocks)
 
     def reloadMap(self, mapFile):
