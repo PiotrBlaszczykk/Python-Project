@@ -4,6 +4,7 @@ import random
 import pygame
 from map_functions.DynamicProp import DynamicProp
 from map_functions.ImageCache import ImageCache
+from map_functions.MapLoader import MapLoader
 from map_functions.StaticProp import StaticProp
 from map_functions.VoidProp import VoidProp
 from config import fps, fps_ratio
@@ -19,52 +20,56 @@ class minigame_falling_blocks:
         self.clock = clock
         self.static_props = []
         self.dynamic_props = []
-        self.map = None
+        self.void_props = []
         self.dynamic_elements_amount = 2
         self.player = player
         self.camera = None
         self.map_objects = {}
         self.motherClass = motherClass
+        self.mapLoader = MapLoader(self.screen)
+        self.counter = 0 #potrzebne do spawnowania elementów
         self.loadMap()
 
     def loadMap(self):
         self.ImageCache = ImageCache()
-        with open('minigames/falling_blocks/data.json', 'r') as file:
-            self.map = json.load(file)
-            static_elements = self.map["StaticProps"]
-            for obj in static_elements:
-                position = [obj['position']['x'], obj['position']['y']]
-                scale = (obj['scale']['x'], obj['scale']['y'])
-                imagePath = obj['imagePath']
-                new_object = StaticProp(obj['name'], position, imagePath, scale, self.ImageCache)
-                self.static_props[new_object.name] = new_object
-                self.map_objects["static_props"] = self.static_props
+        self.map_objects = self.mapLoader.loadMap("minigames/falling_blocks")
+        self.static_props = self.map_objects["static_props"]
+        self.void_props = self.map_objects["void_props"]
+        self.map_objects["dynamic_props"] = self.dynamic_props
 
-            for i in range(self.dynamic_elements_amount):
-                self.dynamicElementGenerate()
-            self.map_objects.append([]) #temporary until we fill void elements
-            self.map_objects.append(self.dynamic_props)
-            self.map_objects.append([]) #zeby sie nie wykruszylo, bo dodalem interactive props
-            self.map_objects.append([])  # tak samo dla background props
-            self.camera = Camera(self.map_objects)
+        self.heart = pygame.image.load("minigames/falling_blocks/graphics/full_heart.png")
+        self.heart = pygame.transform.scale(self.heart, (80, 80))
 
-            self.map
+        self.harnas = pygame.image.load("minigames/falling_blocks/graphics/harnas.png")
+        self.harnas = pygame.transform.scale(self.harnas, (60, 80))
 
+        self.camera = Camera(self.map_objects)
 
     def dynamicElementGenerate(self):
+        is_beer = False
+        beer_or_deadly = random.randint(0, 10)
+        if beer_or_deadly <=2:
+            is_beer = True
+
         x = random.randint(0, self.screen.get_width())
-        y = random.randint(0, self.screen.get_height())
+        y = 0
         position = [x, y]
         horizontal_speed = random.randint(1, 4)
         vertical_speed = random.randint(1, 4)
-        imagePath = 'minigames/falling_blocks/graphics/grass1.png'
-        scale_x = random.randint(20, 80)
-        scale_y = random.randint(10, 50)
+        if is_beer == False:
+            imagePath = 'grafiki_dump/dwa_zero.png'
+            scale_x = 62 * 2
+            scale_y = 41 * 2
+        else:
+            imagePath = 'grafiki_dump/harnas.png'
+            scale_x = 15 * 4
+            scale_y = 24 * 4
         scale = (scale_x, scale_y)
 
         element = DynamicProp("falling block", position, imagePath, scale, vertical_speed, horizontal_speed, self.screen)
+        if is_beer == False:
+            element.isDeadly = True
         self.dynamic_props.append(element)
-
 
     def checkColision(self, dynamic_el):
         objects_start_x = dynamic_el.getPosition()[0]
@@ -78,23 +83,31 @@ class minigame_falling_blocks:
         players_end_y = self.player.getPosition()[1] + self.player.getAppearance().get_height()
 
 
-        vertical_overlap = (objects_start_y > players_start_y and objects_start_y < players_end_y)
-        horizontal_overlap = ((objects_start_x > players_start_x and objects_start_x < players_end_x) or (objects_end_x < players_end_x and objects_end_x > objects_start_x))
-        # if (objects_start_y > players_start_y and
-        #         objects_start_y < players_end_y):
-        #     if(objects_start_x > players_start_x and objects_start_x < players_end_x or
-        #     objects_end_x < players_end_x and objects_end_x > objects_start_x):
-        #         return True
-        if vertical_overlap and horizontal_overlap:
+        horizontal_overlap = (objects_start_x < players_end_x and objects_end_x > players_start_x)
+        vertical_overlap = (objects_start_y < players_end_y and objects_end_y > players_start_y)
+
+        if horizontal_overlap and vertical_overlap:
             return True
 
         return False
 
+    def remove_fallen_element(self, dynamic_el):
+        objects_start_y = dynamic_el.getPosition()[1]
+        objects_end_y = dynamic_el.getPosition()[1] + dynamic_el.getAppearance().get_height()
+        if objects_end_y >= self.screen.get_height() - 20:
+            self.dynamic_props.remove(dynamic_el)
+
+
+
     def render(self):
         is_over = False
+        successfull = False
+        heart_position_y = 10
+        heart_position_x = 10
+        harnas_position_y = 100
+        harnas_position_x = 10
         while True:
             self.screen.fill((68, 15, 104))
-            self.screen.blit(self.player.getAppearance(), self.player.getPosition())
 
             for event in pygame.event.get():
 
@@ -109,8 +122,6 @@ class minigame_falling_blocks:
                     is_over = True
                     break
 
-                    # R key is pressed
-                    # Your code for handling R key press goes here
 
                 elif keys[pygame.K_t]:
 
@@ -126,18 +137,51 @@ class minigame_falling_blocks:
                 break
 
 
-            self.player.tick_update(self.static_props, self.camera)
+            self.player.tick_update(self.static_props, self.camera, self.map_objects["interactive_props"])
+
+            for void_el in self.void_props:
+                self.screen.blit(void_el.getAppearance(), void_el.getPosition())
 
             for static_el in self.static_props:
                 self.screen.blit(static_el.getAppearance(), static_el.getPosition())
+            self.screen.blit(self.player.getAppearance(), self.player.getPosition())
 
             for dynamic_el in self.dynamic_props:
                 if(self.checkColision(dynamic_el)):
-                    is_over = True
-                    break
+                    if(dynamic_el.isDeadly == True):
+                        self.health -= 1
+                        self.dynamic_props.remove(dynamic_el)
+                        if self.health <= 0:
+                            is_over = True
+                            successfull = False
+                            self.motherClass.reloadMap("maps/test1")
+                            self.motherClass.run()
+                            return successfull
+                        break
+                    else:
+                        self.score+=1
+                        if self.score >= 10:
+                            successfull = True
+                            self.motherClass.reloadMap("maps/test1")
+                            self.motherClass.run()
+                            return successfull
+                        print(self.score)
+                        self.dynamic_props.remove(dynamic_el)
+
+                self.remove_fallen_element(dynamic_el)
                 dynamic_el.moveVerticallyDown()
                 self.screen.blit(dynamic_el.getAppearance(), dynamic_el.getPosition())
 
+            if self.counter >= 120:
+                self.counter = 0
+                self.dynamicElementGenerate()
+
+            for i in range(self.health):
+                self.screen.blit(self.heart, [self.heart.get_width() * i + 5, heart_position_y])
+
+            for i in range(self.score):
+                self.screen.blit(self.harnas, [self.harnas.get_width() * i + 5, harnas_position_y])
+            self.counter += 1
             self.clock.tick(fps)
             pygame.display.update()
 

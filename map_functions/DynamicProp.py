@@ -14,6 +14,9 @@ class DynamicProp():
         self.horizontalSpeed = horizontalSpeed
         self.screen = screen
 
+        #na potrzeby minigierki dynamic prop może być albo zabójczy - zaberać życie, albo dawać punkty (picie harnolda)
+        self.isDeadly = False;
+
     def setPosition(self, objectPosition):
         self.position = objectPosition
         self.hitbox = self.appearance.get_rect(topleft=self.position)

@@ -3,8 +3,40 @@
     {
       "name": "grass",
       "position": {"x": 0, "y": 664},
-      "imagePath": "minigames/falling_blocks/graphics/grass2.png",
-      "scale": {"x": 1280, "y": 59}
+      "imagePath": "grass2.png",
+      "scale": {"x": 960, "y": 44}
+    },
+        {
+      "name": "grass",
+      "position": {"x": 960, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 960, "y": 44}
+    },
+        {
+      "name": "grass",
+      "position": {"x": 1920, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 960, "y": 44}
+    },
+    {
+      "name": "kolumna",
+      "position": {"x": 0, "y": 0},
+      "imagePath": "wi_kolumna.png",
+      "scale": {"x": 63, "y": 662}
+    },
+    {
+      "name": "kolumna",
+      "position": {"x": 2817 , "y": 0},
+      "imagePath": "wi_kolumna.png",
+      "scale": {"x": 63, "y": 662}
     }
-    ]
+    ],
+  "VoidProps": [
+    {
+      "name": "background",
+      "position": {"x": 40, "y": 0},
+      "imagePath": "falisz.png",
+      "scale": {"x": 1850, "y": 670}
+    }
+  ]
 }

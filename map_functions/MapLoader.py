@@ -126,8 +126,8 @@ class MapLoader():
         for obj in self.interactive_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 
-        # for obj in self.interactive_props:
-        #     pygame.draw.rect(self.screen, (255, 0, 0), obj.hitbox, 10)
+        #for obj in self.interactive_props:
+            #pygame.draw.rect(self.screen, (255, 0, 0), obj.hitbox, 10)
 
         #do debugowania
 

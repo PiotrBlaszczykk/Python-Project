@@ -23,15 +23,16 @@ class Game:
         self.mapLoader = MapLoader(self.screen)
         self.clock = pygame.time.Clock()
         self.menu = Menu(self.screen, self.clock, self)
-        #self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
 
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
-    # def show_falling_blocks(self):
-    #     self.mapLoader.loadMisc(self.falling_blocks)
+    def show_falling_blocks(self):
+        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        self.mapLoader.loadMisc(self.falling_blocks)
 
     def reloadMap(self, mapFile):
 
