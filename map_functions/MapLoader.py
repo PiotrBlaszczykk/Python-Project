@@ -7,7 +7,9 @@ from map_functions.StaticProp import StaticProp
 from map_functions.VoidProp import VoidProp
 from map_functions.InteractiveProps.Door import Door
 from map_functions.InteractiveProps.Box import Box
+from map_functions.InteractiveProps.BoxBig import BoxBig
 from map_functions.BackgroundProp import BackgroundProp
+from map_functions.AnimatedProp import AnimatedProp
 
 class MapLoader():
     def __init__(self, screen):
@@ -74,7 +76,8 @@ class MapLoader():
         if "Boxes" in self.map:
             for obj in self.map['Boxes']:
                 position = [obj['position']['x'], obj['position']['y']]
-                new_object = Box(obj['name'], position)
+                variant = obj['variant']
+                new_object = Box(obj['name'], position) if variant == "normal" else BoxBig(obj['name'], position)
                 self.interactive_props.append(new_object)
 
         self.background_props = []
@@ -85,6 +88,16 @@ class MapLoader():
                 imagePath = os.path.join(graphicsDirectory, obj['imagePath'])
                 new_object = BackgroundProp(obj['name'], position, imagePath, scale, self.ImageCache)
                 self.background_props.append(new_object)
+
+        self.animated_props = []
+        if "AnimatedProps" in self.map:
+            for obj in self.map['AnimatedProps']:
+                position = [obj['position']['x'], obj['position']['y']]
+                scale = (obj['scale']['x'], obj['scale']['y'])
+                imagePath1 = os.path.join(graphicsDirectory, obj['imagePath1'])
+                imagePath2 = os.path.join(graphicsDirectory, obj['imagePath2'])
+                new_object = AnimatedProp(obj['name'], position, imagePath1, imagePath2, scale, self.ImageCache)
+                self.animated_props.append(new_object)
 
 
 
@@ -105,6 +118,7 @@ class MapLoader():
         self.map_objects["interactive_props"] = self.interactive_props
         self.map_objects["background_props"] = self.background_props
         self.map_objects["spawn"] = self.spawn
+        self.map_objects["animated_props"] = self.animated_props
 
         return self.map_objects
 
@@ -118,6 +132,9 @@ class MapLoader():
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 
         for obj in self.void_props:
+            self.screen.blit(obj.getAppearance(), obj.getPosition())
+
+        for obj in self.animated_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
 
         for obj in self.static_props:

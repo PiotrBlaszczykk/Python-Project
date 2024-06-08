@@ -2,26 +2,26 @@ import pygame
 from config import fps_ratio
 
 def load_image(path):
-    scale = (188, 314)
+    scale = (188, 474)
     image = pygame.image.load(path).convert_alpha()
     image = pygame.transform.scale(image, scale)
     return image
 
 #Box nalezy do Interactive Props
-class Box():
+class BoxBig():
 
     def __init__(self, objectName, objectPosition):
 
         self.type = "box"  #przesuwany static prop
-        self.idle = load_image("grafiki_dump/Box_0.png")
-        self.interacting_1 = load_image("grafiki_dump/Box_E1.png")
-        self.interacting_2 = load_image("grafiki_dump/Box_E2.png")
+        self.idle = load_image("grafiki_dump/Big_Box_0.png")
+        self.interacting_1 = load_image("grafiki_dump/Big_Box_E1.png")
+        self.interacting_2 = load_image("grafiki_dump/Big_Box_E2.png")
         self.name = objectName
         self.position = objectPosition
 
         self.appearance = self.idle
 
-        self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 194)
+        self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 234)
         self.interaction_hitbox = pygame.Rect(self.position[0] - 45, self.position[1] + 125, 258, 194)
         self.colliding = False
         self.pushed = False
@@ -39,7 +39,7 @@ class Box():
         self.setHitbox()
 
         if not self.pushed:
-            if self.interaction_hitbox.colliderect(player.hitbox) and not player.pushing:
+            if self.interaction_hitbox.colliderect(player.hitbox):
                 self.colliding = True
             else:
                 self.colliding = False
@@ -70,7 +70,7 @@ class Box():
         return self.hitbox
 
     def setHitbox(self):
-        self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 194)
+        self.hitbox = pygame.Rect(self.position[0], self.position[1] + 120, 188, 234)
         self.interaction_hitbox = pygame.Rect(self.position[0] - 45, self.position[1] + 125, 258, 194)
 
 

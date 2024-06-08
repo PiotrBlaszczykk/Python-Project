@@ -24,13 +24,23 @@
   "Boxes": [
     {
       "name": "box",
+      "variant": "normal",
       "position": {
         "x": 1600,
         "y": 314
       }
+    },
+    {
+      "name": "box",
+      "variant": "big",
+      "position": {
+        "x": 2000,
+        "y": 154
+      }
     }
 
   ],
+
 
   "StaticProps": [
     {
@@ -1387,5 +1397,21 @@
         "y": 1130
       }
     }
-  ]
+  ],
+
+  "AnimatedProps": [
+    {
+      "name": "stefcia",
+      "position": {
+        "x": 500,
+        "y": 500
+      },
+      "imagePath1": "stefcia_1.png",
+      "imagePath2": "stefcia_2.png",
+      "scale": {
+        "x": 112,
+        "y": 92
+      }
+    }
+    ]
 }

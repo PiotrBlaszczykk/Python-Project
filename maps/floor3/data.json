@@ -28,6 +28,27 @@
       "destination": "maps/floor4"
     }
   ],
+
+    "Boxes": [
+    {
+      "name": "box",
+      "variant": "normal",
+      "position": {
+        "x": 1600,
+        "y": 314
+      }
+    },
+    {
+      "name": "box",
+      "variant": "big",
+      "position": {
+        "x": -1000,
+        "y": 154
+      }
+    }
+
+  ],
+
   "StaticProps": [
     {
       "name": "wi_column_right",

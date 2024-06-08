@@ -372,6 +372,11 @@ class Player():
                 if self.handle_collision(obj, camera):
                     self.airborne = False
 
+        else:
+            for obj in boxes:
+                if self.moving_object is not obj:
+                    self.handle_collision(obj, camera)
+
         self.hitbox.topleft = self.position
         if self.flag:
             camera.isPlayerBlocked = True

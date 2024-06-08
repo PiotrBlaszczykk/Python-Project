@@ -43,7 +43,9 @@ class Game:
         self.interactive_props = self.map_objects["interactive_props"]
         self.background_props = self.map_objects["background_props"]
         self.player.position = self.map_objects["spawn"]
+        self.animated_props = self.map_objects["animated_props"]
         self.camera = Camera(self.map_objects)
+        self.current_map = mapFile
 
         self.boxes = []
 
@@ -73,7 +75,7 @@ class Game:
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
             self.e_pressed = False
 
-            #pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
+            # pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
 
             for event in pygame.event.get():
 
@@ -117,19 +119,30 @@ class Game:
                 self.player.tick_update(self.static_props, self.camera, self.boxes)
 
                 for obj in self.interactive_props:
+
                     obj.tick_update(self.player)
                     if obj.colliding and self.e_pressed:
-                        if obj.type == "warp":
+                        if obj.type == "warp" and not self.player.pushing:
                             self.reloadMap(obj.destination)
 
                         elif obj.type == "box":
                             if not self.player.pushing:
                                 self.player.start_pushing(obj)
 
-                            else:
+                            elif obj is self.player.moving_object:
                                 self.player.stop_pushing()
+
+                for obj in self.animated_props:
+                    obj.tick_update()
+
             else:
                 self.screen.blit(self.pause_button, self.pause_button_rect)
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_q]:
+                    if self.player.pushing:
+                        self.player.stop_pushing()
+                    self.reloadMap(self.current_map)
+                    self.paused = False
 
             self.clock.tick(fps)
             self.ticks_ellapsed += 1
