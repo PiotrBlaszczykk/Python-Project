@@ -161,11 +161,13 @@ class minigame_falling_blocks:
                         break
                     else:
                         self.score+=1
-                        if self.score >= 10:
-                            successfull = True
-                            self.motherClass.reloadMap("maps/test1")
-                            self.motherClass.run()
-                            return successfull
+                        if self.score >= 4:
+                            self.successfull = True
+                            self.completed = True
+                            # self.motherClass.reloadMap("maps/test1")
+                            # self.motherClass.run()
+                            # return successfull
+
                         print(self.score)
                         self.dynamic_props.remove(dynamic_el)
 
@@ -173,7 +175,7 @@ class minigame_falling_blocks:
                 dynamic_el.moveVerticallyDown()
                 self.screen.blit(dynamic_el.getAppearance(), dynamic_el.getPosition())
 
-            if self.counter >= 120:
+            if self.counter >= 120 and self.completed == False:
                 self.counter = 0
                 self.dynamicElementGenerate()
 
