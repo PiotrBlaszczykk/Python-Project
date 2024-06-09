@@ -28,6 +28,7 @@ class minigame_falling_blocks:
         self.motherClass = motherClass
         self.mapLoader = MapLoader(self.screen)
         self.counter = 0 #potrzebne do spawnowania elementów
+        self.completed = False
         self.loadMap()
 
     def loadMap(self):

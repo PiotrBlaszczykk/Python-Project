@@ -30,6 +30,7 @@ class minigame_lights:
         self.diodeOns = []
         self.buttonOffs = []
         self.buttonPressed = []
+        self.completed = False
         self.loadMap()
 
     def loadMap(self):
@@ -127,14 +128,14 @@ class minigame_lights:
             self.drawGame(False)
 
             if self.check_solution():
-                for i in range(120):
-                    self.drawGame(True)
-                    self.clock.tick(fps)
-                    pygame.display.update()
-                self.drawGame(True)
-                self.motherClass.reloadMap("maps/test1")
-                self.motherClass.run()
-                return True
+                # for i in range(120):
+                #     self.drawGame(True)
+                #     self.clock.tick(fps)
+                #     pygame.display.update()
+                self.completed = True
+                # self.motherClass.reloadMap("maps/test1")
+                # self.motherClass.run()
+                # return True
 
             self.clock.tick(fps)
             pygame.display.update()
