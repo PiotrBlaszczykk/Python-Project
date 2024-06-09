@@ -12,6 +12,9 @@ from map_functions.MapLoader import MapLoader
 
 
 from config import fps, fps_ratio
+from player_details.minigame_lights import minigame_lights
+
+
 class Game:
 
     def __init__(self, player):
@@ -24,6 +27,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.menu = Menu(self.screen, self.clock, self)
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        self.minigame_lights = minigame_lights(self.screen, self.clock, self.player, self)
         self.paused = False
 
 
@@ -33,6 +37,10 @@ class Game:
     def show_falling_blocks(self):
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.mapLoader.loadMisc(self.falling_blocks)
+
+    def show_lights(self):
+        self.minigame_lights = minigame_lights(self.screen, self.clock, self.player, self)
+        self.mapLoader.loadMisc(self.minigame_lights)
 
     def reloadMap(self, mapFile):
 
@@ -110,6 +118,10 @@ class Game:
 
                 elif keys[pygame.K_u]:
                     self.show_falling_blocks()
+                    break
+
+                elif keys[pygame.K_z]:
+                    self.show_lights()
                     break
 
 

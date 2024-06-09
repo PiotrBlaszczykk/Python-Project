@@ -1,0 +1,148 @@
+{
+  "StaticProps": [
+    {
+      "name": "floor",
+      "position": {"x": 0, "y": 644},
+      "imagePath": "block.png",
+      "scale": {"x": 1600, "y": 120}
+    },
+    {
+      "name": "floor",
+      "position": {"x": 0, "y": 200},
+      "imagePath": "block.png",
+      "scale": {"x": 1600, "y": 60}
+    },
+    {
+      "name": "kolumna",
+      "position": {"x": 0, "y": 0},
+      "imagePath": "wi_kolumna.png",
+      "scale": {"x": 63, "y": 662}
+    },
+    {
+      "name": "kolumna",
+      "position": {"x": 1537 , "y": 0},
+      "imagePath": "wi_kolumna.png",
+      "scale": {"x": 63, "y": 662}
+    },
+    {
+      "name": "diodeOff",
+      "position": {"x": 150 , "y": 100},
+      "imagePath": "diode_off.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOff",
+      "position": {"x": 450 , "y": 100},
+      "imagePath": "diode_off.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOff",
+      "position": {"x": 750 , "y": 100},
+      "imagePath": "diode_off.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOff",
+      "position": {"x": 1050 , "y": 100},
+      "imagePath": "diode_off.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOff",
+      "position": {"x": 1350 , "y": 100},
+      "imagePath": "diode_off.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOn",
+      "position": {"x": 150 , "y": 100},
+      "imagePath": "diode_on.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOn",
+      "position": {"x": 450 , "y": 100},
+      "imagePath": "diode_on.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOn",
+      "position": {"x": 750 , "y": 100},
+      "imagePath": "diode_on.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOn",
+      "position": {"x": 1050 , "y": 100},
+      "imagePath": "diode_on.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "diodeOn",
+      "position": {"x": 1350 , "y": 100},
+      "imagePath": "diode_on.png",
+      "scale": {"x": 100, "y": 100}
+    },
+    {
+      "name": "buttonOff",
+      "position": {"x": 100 , "y": 600},
+      "imagePath": "button_off.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonOff",
+      "position": {"x": 400 , "y": 600},
+      "imagePath": "button_off.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonOff",
+      "position": {"x": 700 , "y": 600},
+      "imagePath": "button_off.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonOff",
+      "position": {"x": 1000 , "y": 600},
+      "imagePath": "button_off.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonOff",
+      "position": {"x": 1300 , "y": 600},
+      "imagePath": "button_off.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonPressed",
+      "position": {"x": 100 , "y": 600},
+      "imagePath": "button_pressed.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonPressed",
+      "position": {"x": 400 , "y": 600},
+      "imagePath": "button_pressed.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonPressed",
+      "position": {"x": 700 , "y": 600},
+      "imagePath": "button_pressed.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonPressed",
+      "position": {"x": 1000 , "y": 600},
+      "imagePath": "button_pressed.png",
+      "scale": {"x": 220, "y": 130}
+    },
+    {
+      "name": "buttonPressed",
+      "position": {"x": 1300 , "y": 600},
+      "imagePath": "button_pressed.png",
+      "scale": {"x": 220, "y": 130}
+    }
+  ]
+}
