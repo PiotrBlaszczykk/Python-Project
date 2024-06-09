@@ -79,9 +79,23 @@ class minigame_lights:
             return False
 
 
+    def drawGame(self, flag):
+        for i in range(len(self.solution)):
+            currDiodeOff = self.diodeOffs[i]
+            currDiodeOn = self.diodeOns[i]
+            currButtonOff = self.buttonOffs[i]
+            currButtonPressed = self.buttonPressed[i]
+
+            if self.curr_number[i] == 1:
+                self.screen.blit(currDiodeOn.getAppearance(), currDiodeOn.getPosition())
+                self.screen.blit(currButtonPressed.getAppearance(), currButtonPressed.getPosition())
+            else:
+                self.screen.blit(currDiodeOff.getAppearance(), currDiodeOff.getPosition())
+                self.screen.blit(currButtonOff.getAppearance(), currButtonOff.getPosition())
 
 
     def render(self):
+        counter = 0;
         while True:
             self.screen.fill((68, 15, 104))
 
@@ -92,17 +106,17 @@ class minigame_lights:
 
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_e]:
-                    for i in range(len(self.solution)):
+                    for i in range(len(self.buttonOffs)):
+                        if counter >= 1:
+                            counter = 0
+                            break
                         if self.checkButtonColision(self.buttonOffs[i]):
                             self.updateDiode(i)
+                            counter += 1
+                            break
 
                 self.player.movement(event, self.camera)
-            pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
-
             self.player.tick_update(self.static_props, self.camera, self.map_objects["interactive_props"], self.map_objects["diss_blocks"])
-
-            for void_el in self.void_props:
-                self.screen.blit(void_el.getAppearance(), void_el.getPosition())
 
             for static_el in self.static_props:
                 if static_el.name == "buttonOff" or static_el.name == "buttonPressed" or static_el.name == "diodeOn" or static_el.name == "diodeOff":
@@ -110,25 +124,14 @@ class minigame_lights:
                 self.screen.blit(static_el.getAppearance(), static_el.getPosition())
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
 
-            for i in range(len(self.solution)):
-                currDiodeOff = self.diodeOffs[i]
-                currDiodeOn = self.diodeOns[i]
-                currButtonOff = self.buttonOffs[i]
-                currButtonPressed = self.buttonPressed[i]
-
-                if self.curr_number[i] == 1:
-                    self.screen.blit(currDiodeOn.getAppearance(), currDiodeOn.getPosition())
-                    self.screen.blit(currButtonPressed.getAppearance(), currButtonPressed.getPosition())
-                    pygame.draw.rect(self.screen, (255, 0, 0), currDiodeOn.hitbox, 10)
-                    pygame.draw.rect(self.screen, (255, 0, 0), currButtonPressed.hitbox, 10)
-                else:
-                    self.screen.blit(currDiodeOff.getAppearance(), currDiodeOff.getPosition())
-                    self.screen.blit(currButtonOff.getAppearance(), currButtonOff.getPosition())
-                    pygame.draw.rect(self.screen, (255, 0, 0), currDiodeOff.hitbox, 10)
-                    pygame.draw.rect(self.screen, (255, 0, 0), currButtonOff.hitbox, 10)
+            self.drawGame(False)
 
             if self.check_solution():
-                time.sleep(1)
+                for i in range(120):
+                    self.drawGame(True)
+                    self.clock.tick(fps)
+                    pygame.display.update()
+                self.drawGame(True)
                 self.motherClass.reloadMap("maps/test1")
                 self.motherClass.run()
                 return True

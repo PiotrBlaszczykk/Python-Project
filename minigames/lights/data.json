@@ -2,7 +2,7 @@
   "StaticProps": [
     {
       "name": "floor",
-      "position": {"x": 0, "y": 644},
+      "position": {"x": 0, "y": 624},
       "imagePath": "block.png",
       "scale": {"x": 1600, "y": 120}
     },

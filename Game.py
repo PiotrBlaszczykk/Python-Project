@@ -1,8 +1,6 @@
 import sys
 import pygame
 from player import Player
-import math
-from cloud import Cloud
 from camera import Camera
 from Menu import Menu
 from minigame_falling_blocks import minigame_falling_blocks
@@ -11,8 +9,8 @@ from map_functions.MapLoader import MapLoader
 
 
 
-from config import fps, fps_ratio
-from player_details.minigame_lights import minigame_lights
+from config import fps
+from minigame_lights import minigame_lights
 
 
 class Game:
