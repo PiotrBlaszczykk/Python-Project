@@ -13,6 +13,7 @@ from map_functions.AnimatedProp import AnimatedProp
 from map_functions.InteractiveProps.Ladder import Ladder
 from map_functions.InteractiveProps.Vent import Vent
 from map_functions.DissBlock import DissBlock
+from map_functions.Item import Item
 
 class MapLoader():
     def __init__(self, screen):
@@ -116,6 +117,16 @@ class MapLoader():
                 self.diss_blocks.append(new_object)
 
 
+        self.items = []
+        if "Items" in self.map:
+            for obj in self.map['Items']:
+                position = [obj['position']['x'], obj['position']['y']]
+                scale = (obj['scale']['x'], obj['scale']['y'])
+                imagePath = os.path.join(graphicsDirectory, obj['imagePath'])
+                index = obj['index']
+                new_object = Item(obj['name'], position, imagePath, scale, index)
+                self.items.append(new_object)
+
 
 
         self.dynamic_props = []                     #do edycji, tymczasowe żeby się program kompilował
@@ -136,6 +147,7 @@ class MapLoader():
         self.map_objects["spawn"] = self.spawn
         self.map_objects["animated_props"] = self.animated_props
         self.map_objects["diss_blocks"] = self.diss_blocks
+        self.map_objects["items"] = self.items
 
         return self.map_objects
 
@@ -162,6 +174,10 @@ class MapLoader():
 
         for obj in self.interactive_props:
             self.screen.blit(obj.getAppearance(), obj.getPosition())
+
+        for obj in self.items:
+            self.screen.blit(obj.getAppearance(), obj.getPosition())
+
 
         # for obj in self.interactive_props:
         #     pygame.draw.rect(self.screen, (255, 0, 0), obj.hitbox, 10)

@@ -21,7 +21,7 @@ class Player():
         self.name = playerName
         self.position = playerPosition
 
-        self.items = [True, True, True, True, True]
+        self.items = [False for _ in range(5)]
 
         self.player_movement = [False, False, False, False]  #0-up, 1-down, 2-left, 3-right
 

@@ -22,6 +22,17 @@
 
   ],
 
+  "Items":[
+    {
+      "name": "ruskacz",
+      "position": {"x":  0, "y":  400},
+      "scale": {"x":  67, "y":  147},
+      "imagePath": "ruskacz.png",
+      "index": 0
+    }
+  ],
+
+
   "Boxes": [
     {
       "name": "box",

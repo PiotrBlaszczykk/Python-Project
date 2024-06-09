@@ -90,6 +90,7 @@ class Game:
         self.player.position = self.map_objects["spawn"]
         self.animated_props = self.map_objects["animated_props"]
         self.diss_blocks = self.map_objects["diss_blocks"]
+        self.items = self.map_objects["items"]
         self.camera = Camera(self.map_objects)
         self.current_map = mapFile
 
@@ -188,6 +189,9 @@ class Game:
 
                 for obj in self.diss_blocks:
                     obj.tick_update()
+
+                for obj in self.items:
+                    obj.tick_update(self.player)
 
             else:
                 #pauza

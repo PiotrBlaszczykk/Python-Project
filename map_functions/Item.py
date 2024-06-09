@@ -22,7 +22,7 @@ class Item():
 
         self.ticks_elapsed = 0
         self.shift = 0
-        self.direction = 1 * fps_ratio
+        self.direction = 0.5 * fps_ratio
 
 
     def spawn_button(self):
@@ -36,19 +36,15 @@ class Item():
         self.shift += self.direction
         self.position[1] += self.direction
 
-        if self.shift > 20:
+        if self.shift > 30:
             self.direction *= -1
         elif self.shift < 0:
             self.direction *= -1
 
         if self.hitbox.colliderect(player.hitbox):
             player.items[self.index] = True
+            print("KOLIZJA")
             self.position[1] += 1000
-
-
-
-    def setPosition(self, objectPosition):
-        self.position = objectPosition
 
     def getPosition(self):
         return self.position
