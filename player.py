@@ -21,6 +21,8 @@ class Player():
         self.name = playerName
         self.position = playerPosition
 
+        self.items = [True, True, True, True, True]
+
         self.player_movement = [False, False, False, False]  #0-up, 1-down, 2-left, 3-right
 
         self.vertical_velocity = 0

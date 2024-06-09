@@ -33,16 +33,58 @@
     {
       "name" : "block1",
       "position": {
-        "x": 0,
-        "y": 500
+        "x": 4900,
+        "y": 400
       },
-      "imagePath": "block.png",
+      "imagePath": "moving_block.png",
       "scale": {
         "x": 188,
         "y": 68
-      }
-    }
+      },
+      "start" : 0
+    },
 
+    {
+      "name" : "block2",
+      "position": {
+        "x": 6000,
+        "y": 400
+      },
+      "imagePath": "moving_block.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      },
+      "start" : 0
+    },
+
+    {
+      "name" : "block3",
+      "position": {
+        "x": 6500,
+        "y": 400
+      },
+      "imagePath": "moving_block.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      },
+      "start" : 199
+    },
+
+    {
+      "name" : "block4",
+      "position": {
+        "x": 7000,
+        "y": 400
+      },
+      "imagePath": "moving_block.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      },
+      "start" : 0
+    }
   ],
 
   "StaticProps": [
@@ -167,8 +209,8 @@
         {
       "name": "block9",
       "position": {
-        "x": 3600,
-        "y": 200
+        "x": 3700,
+        "y": 400
       },
       "imagePath": "block.png",
       "scale": {
@@ -180,8 +222,8 @@
         {
       "name": "block10",
       "position": {
-        "x": 3600,
-        "y": 200
+        "x": 5400,
+        "y": 400
       },
       "imagePath": "block.png",
       "scale": {
@@ -193,8 +235,8 @@
         {
       "name": "block11",
       "position": {
-        "x": 3600,
-        "y": 200
+        "x": 7500,
+        "y": 400
       },
       "imagePath": "block.png",
       "scale": {
@@ -206,7 +248,7 @@
         {
       "name": "block12",
       "position": {
-        "x": 4400,
+        "x": 4370,
         "y": 400
       },
       "imagePath": "block.png",
@@ -1304,6 +1346,60 @@
             "x": 108,
             "y": 789
         }
+    },
+
+
+
+    {
+      "name" : "hole1",
+      "position": {
+        "x": 4900,
+        "y": 400
+      },
+      "imagePath": "hole.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      }
+    },
+
+    {
+      "name" : "hole1",
+      "position": {
+        "x": 6000,
+        "y": 400
+      },
+      "imagePath": "hole.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      }
+    },
+
+    {
+      "name" : "hole1",
+      "position": {
+        "x": 6500,
+        "y": 400
+      },
+      "imagePath": "hole.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      }
+    },
+
+    {
+      "name" : "hole1",
+      "position": {
+        "x": 7000,
+        "y": 400
+      },
+      "imagePath": "hole.png",
+      "scale": {
+        "x": 188,
+        "y": 68
+      }
     }
   ]
 }

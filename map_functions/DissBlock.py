@@ -3,13 +3,15 @@ from config import fps_ratio
 
 class DissBlock():
 
-    def __init__(self, objectName, objectPosition, imagePath, scale, image_cache):
+    def __init__(self, objectName, objectPosition, imagePath, scale, image_cache, start):
         self.imagePath = imagePath
         self.name = objectName
         self.position = objectPosition
         self.appearance = image_cache.get_image(imagePath, scale)
         self.hitbox = self.appearance.get_rect(topleft=self.position)
-        self.tick_ellapsed = 0
+        self.tick_ellapsed = int(start) * fps_ratio
+
+        print(self.tick_ellapsed)
 
     def tick_update(self):
         self.tick_ellapsed += 1

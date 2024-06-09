@@ -33,6 +33,51 @@ class Game:
     def show_falling_blocks(self):
         self.mapLoader.loadMisc(self.falling_blocks)
 
+    def show_items(self):
+
+        items = self.player.items
+
+        if items[0]:
+            image = pygame.image.load("items/ruskacz.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/ruskacz_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (67, 147))
+        image_rect = image.get_rect(center = (380, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[1]:
+            image = pygame.image.load("items/marlboro.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/marlboro_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (63, 120))
+        image_rect = image.get_rect(center = (490, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[2]:
+            image = pygame.image.load("items/trzy_zero.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/trzy_zero_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (118, 76))
+        image_rect = image.get_rect(center = (620, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[3]:
+            image = pygame.image.load("items/kebab.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/kebab_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (107, 87))
+        image_rect = image.get_rect(center = (750, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[4]:
+            image = pygame.image.load("items/vifon.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/vifon_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (93, 123))
+        image_rect = image.get_rect(center = (880, 100))
+        self.screen.blit(image, image_rect)
+
+
     def reloadMap(self, mapFile):
 
 
@@ -61,13 +106,15 @@ class Game:
 
         self.ticks_ellapsed = 0
 
-        self.pause_button = pygame.image.load("grafiki_dump/pauza.png")
+        self.pause_button = pygame.image.load("grafiki_dump/pauza.png").convert_alpha()
         self.pause_button = pygame.transform.scale(self.pause_button, (471, 78))
+        # self.pause_button_rect = self.pause_button.get_rect(
+        #     center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
         self.pause_button_rect = self.pause_button.get_rect(
-            center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
+            center=(640, 360))
 
 
-        self.reloadMap("maps/mario")
+        self.reloadMap("maps/floor4")
 
 
         while True:
@@ -143,8 +190,10 @@ class Game:
                     obj.tick_update()
 
             else:
+                #pauza
                 self.screen.blit(self.pause_button, self.pause_button_rect)
                 keys = pygame.key.get_pressed()
+                self.show_items()
                 if keys[pygame.K_q]:
                     if self.player.pushing:
                         self.player.stop_pushing()

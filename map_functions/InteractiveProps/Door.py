@@ -12,9 +12,9 @@ class Door():
 
     def __init__(self, objectName, objectPosition, destination):
         self.type = "warp"  #różne typy, warp - po wcisnieciu E przenosimy sie do innej lokacji
-        self.idle = load_image("grafiki_dump/door1.png")
-        self.interacting_1 = load_image("grafiki_dump/door1_E1.png")
-        self.interacting_2 = load_image("grafiki_dump/door1_E2.png")
+        self.idle = load_image("grafiki_dump/door1.png").convert_alpha()
+        self.interacting_1 = load_image("grafiki_dump/door1_E1.png").convert_alpha()
+        self.interacting_2 = load_image("grafiki_dump/door1_E2.png").convert_alpha()
         self.name = objectName
         self.position = objectPosition
 

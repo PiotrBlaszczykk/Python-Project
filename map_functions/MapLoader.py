@@ -112,7 +112,7 @@ class MapLoader():
                 position = [obj['position']['x'], obj['position']['y']]
                 scale = (obj['scale']['x'], obj['scale']['y'])
                 imagePath = os.path.join(graphicsDirectory, obj['imagePath'])
-                new_object = DissBlock(obj['name'], position, imagePath, scale, self.ImageCache)
+                new_object = DissBlock(obj['name'], position, imagePath, scale, self.ImageCache, obj['start'])
                 self.diss_blocks.append(new_object)
 
 
