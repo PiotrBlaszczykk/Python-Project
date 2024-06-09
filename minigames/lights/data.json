@@ -83,66 +83,34 @@
       "position": {"x": 1350 , "y": 100},
       "imagePath": "diode_on.png",
       "scale": {"x": 100, "y": 100}
+    }
+  ],
+
+  "Buttons": [
+    {
+      "name": "button1",
+      "position": {"x":  100, "y":  600},
+      "index": 1
     },
     {
-      "name": "buttonOff",
-      "position": {"x": 100 , "y": 600},
-      "imagePath": "button_off.png",
-      "scale": {"x": 220, "y": 130}
+      "name": "button2",
+      "position": {"x":  400, "y":  600},
+      "index": 2
     },
-    {
-      "name": "buttonOff",
-      "position": {"x": 400 , "y": 600},
-      "imagePath": "button_off.png",
-      "scale": {"x": 220, "y": 130}
+        {
+      "name": "button3",
+      "position": {"x":  700, "y":  600},
+      "index": 3
     },
-    {
-      "name": "buttonOff",
-      "position": {"x": 700 , "y": 600},
-      "imagePath": "button_off.png",
-      "scale": {"x": 220, "y": 130}
+        {
+      "name": "button4",
+      "position": {"x":  1000, "y":  600},
+      "index": 4
     },
-    {
-      "name": "buttonOff",
-      "position": {"x": 1000 , "y": 600},
-      "imagePath": "button_off.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonOff",
-      "position": {"x": 1300 , "y": 600},
-      "imagePath": "button_off.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonPressed",
-      "position": {"x": 100 , "y": 600},
-      "imagePath": "button_pressed.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonPressed",
-      "position": {"x": 400 , "y": 600},
-      "imagePath": "button_pressed.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonPressed",
-      "position": {"x": 700 , "y": 600},
-      "imagePath": "button_pressed.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonPressed",
-      "position": {"x": 1000 , "y": 600},
-      "imagePath": "button_pressed.png",
-      "scale": {"x": 220, "y": 130}
-    },
-    {
-      "name": "buttonPressed",
-      "position": {"x": 1300 , "y": 600},
-      "imagePath": "button_pressed.png",
-      "scale": {"x": 220, "y": 130}
+        {
+      "name": "button5",
+      "position": {"x":  1300, "y":  600},
+      "index": 5
     }
   ]
 }

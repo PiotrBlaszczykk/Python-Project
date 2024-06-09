@@ -13,6 +13,7 @@ from map_functions.AnimatedProp import AnimatedProp
 from map_functions.InteractiveProps.Ladder import Ladder
 from map_functions.InteractiveProps.Vent import Vent
 from map_functions.DissBlock import DissBlock
+from map_functions.InteractiveProps.Button import Button
 
 class MapLoader():
     def __init__(self, screen):
@@ -85,6 +86,13 @@ class MapLoader():
                 position = [obj['position']['x'], obj['position']['y']]
                 variant = obj['variant']
                 new_object = Box(obj['name'], position) if variant == "normal" else BoxBig(obj['name'], position)
+                self.interactive_props.append(new_object)
+
+        if "Buttons" in self.map:
+            for obj in self.map['Buttons']:
+                position = [obj['position']['x'], obj['position']['y']]
+                index = obj['index']
+                new_object = Button(obj['name'], position, index)
                 self.interactive_props.append(new_object)
 
         self.background_props = []

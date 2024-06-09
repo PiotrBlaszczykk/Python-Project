@@ -37,6 +37,12 @@ class minigame_lights:
         self.map_objects = self.mapLoader.loadMap("minigames/lights")
         self.static_props = self.map_objects["static_props"]
         self.void_props = self.map_objects["void_props"]
+        self.interactive_props = self.map_objects["interactive_props"]
+
+        self.buttons = []
+        for obj in self.map_objects["interactive_props"]:
+            if obj.type == "button":
+                self.buttons.append(obj)
 
         for object in self.static_props:
             if object.name == "diodeOff":
@@ -67,17 +73,11 @@ class minigame_lights:
             self.curr_number[diodeNum] = 0
 
     def checkButtonColision(self, button):
-        players_start_x = self.player.getPosition()[0]
-        players_end_x = self.player.getPosition()[0] + self.player.getAppearance().get_width()
 
-        button_start_x = button.getPosition()[0]
-        button_end_x = button.getPosition()[0] + button.getAppearance().get_width()
-
-        if players_start_x < button_end_x and players_end_x > button_start_x:
+        if self.player.hitbox.colliderect(button.hitbox):
             return True
         else:
             return False
-
 
 
 
@@ -92,9 +92,14 @@ class minigame_lights:
 
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_e]:
-                    for i in range(len(self.solution)):
-                        if self.checkButtonColision(self.buttonOffs[i]):
-                            self.updateDiode(i)
+
+                    for button in self.buttons:
+                        if self.checkButtonColision(button):
+                            self.updateDiode(button.index)
+
+                    # for i in range(len(self.solution)):
+                    #     if self.checkButtonColision(self.buttonOffs[i]):
+                    #         self.updateDiode(i)
 
                 self.player.movement(event, self.camera)
             pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
@@ -104,8 +109,11 @@ class minigame_lights:
             for void_el in self.void_props:
                 self.screen.blit(void_el.getAppearance(), void_el.getPosition())
 
+            for obj in self.buttons:
+                self.screen.blit(obj.getAppearance(), obj.getPosition())
+
             for static_el in self.static_props:
-                if static_el.name == "buttonOff" or static_el.name == "buttonPressed" or static_el.name == "diodeOn" or static_el.name == "diodeOff":
+                if static_el.name == "diodeOn" or static_el.name == "diodeOff":
                     continue
                 self.screen.blit(static_el.getAppearance(), static_el.getPosition())
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
