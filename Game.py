@@ -1,5 +1,7 @@
 import sys
 import pygame
+
+from minigame_lights import minigame_lights
 from player import Player
 import math
 from cloud import Cloud
@@ -26,12 +28,19 @@ class Game:
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
+        self.starting_map = "maps/easter_egg"
+
 
     def showMenu(self):
         self.mapLoader.loadMisc(self.menu)
 
     def show_falling_blocks(self):
+        self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.mapLoader.loadMisc(self.falling_blocks)
+
+    def show_lights(self):
+        self.minigame_lights = minigame_lights(self.screen, self.clock, self.player, self)
+        self.mapLoader.loadMisc(self.minigame_lights)
 
     def show_items(self):
 
@@ -115,7 +124,7 @@ class Game:
             center=(640, 360))
 
 
-        self.reloadMap("maps/floor4")
+        self.reloadMap(self.starting_map)
 
 
         while True:
@@ -142,14 +151,14 @@ class Game:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_r]:
 
-                    self.reloadMap("maps/test2")
+                    self.items[0].show()
 
                     # R key is pressed
                     # Your code for handling R key press goes here
 
                 elif keys[pygame.K_t]:
 
-                    self.reloadMap("maps/test1")
+                    self.items[0].hide()
 
                 elif keys[pygame.K_e]:
 
@@ -157,6 +166,10 @@ class Game:
 
                 elif keys[pygame.K_u]:
                     self.show_falling_blocks()
+                    break
+
+                elif keys[pygame.K_z]:
+                    self.show_lights()
                     break
 
 
@@ -176,6 +189,14 @@ class Game:
                     if obj.colliding and self.e_pressed:
                         if obj.type == "warp" and not self.player.pushing:
                             self.reloadMap(obj.destination)
+                        elif obj.type == "warp_misc" and not self.player.pushing:
+                            destination = obj.destination
+                            if destination == 1:
+                                self.show_falling_blocks()
+                            if destination == 2:
+                                self.show_lights()
+                            break
+
 
                         elif obj.type == "box":
                             if not self.player.pushing:
@@ -193,6 +214,8 @@ class Game:
                 for obj in self.items:
                     obj.tick_update(self.player)
 
+                self.ticks_ellapsed += 1
+
             else:
                 #pauza
                 self.screen.blit(self.pause_button, self.pause_button_rect)
@@ -205,7 +228,6 @@ class Game:
                     self.paused = False
 
             self.clock.tick(fps)
-            self.ticks_ellapsed += 1
             pygame.display.update()
 
 

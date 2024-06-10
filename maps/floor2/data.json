@@ -26,6 +26,16 @@
         "y": -22
       },
       "destination": "maps/floor3"
+    },
+
+    {
+      "name": "door_lights",
+      "type": "door_misc",
+      "position": {
+        "x": 2800,
+        "y": -22
+      },
+      "destination": 2
     }
   ],
   "StaticProps": [
@@ -1366,6 +1376,19 @@
       "position": { "x": 101, "y": 0 },
       "imagePath": "three_up.png",
       "scale": { "x": 108, "y": 642 }
+    },
+
+    {
+      "name": "diode_frame",
+      "position": {
+        "x": 2900,
+        "y": 100
+      },
+      "imagePath": "item_frame_diode.png",
+      "scale": {
+        "x": 144,
+        "y": 144
+      }
     }
   ],
 

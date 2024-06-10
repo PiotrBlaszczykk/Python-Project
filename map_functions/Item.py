@@ -14,6 +14,7 @@ class Item():
         self.index = index
         self.name = objectName
         self.position = objectPosition
+        self.original_position = objectPosition
 
         self.appearance = pygame.image.load(imagePath).convert_alpha()
         self.appearance = pygame.transform.scale(self.appearance, scale)
@@ -25,9 +26,16 @@ class Item():
         self.direction = 0.5 * fps_ratio
 
 
+    def hide(self):
+        self.position[1] += 2000
+
+    def show(self):
+        self.position[1] -= 2000
+
     def spawn_button(self):
         pass
     def tick_update(self, player):
+
 
         self.ticks_elapsed += 1
 
@@ -43,8 +51,7 @@ class Item():
 
         if self.hitbox.colliderect(player.hitbox):
             player.items[self.index] = True
-            print("KOLIZJA")
-            self.position[1] += 1000
+            self.hide()
 
     def getPosition(self):
         return self.position

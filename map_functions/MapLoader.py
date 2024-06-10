@@ -3,6 +3,7 @@ import json
 import pygame
 
 from map_functions.ImageCache import ImageCache
+from map_functions.InteractiveProps.Door_misc import DoorMisc
 from map_functions.StaticProp import StaticProp
 from map_functions.VoidProp import VoidProp
 from map_functions.InteractiveProps.Door import Door
@@ -75,6 +76,8 @@ class MapLoader():
                 destination = obj['destination']
                 if obj['type'] == 'door':
                     new_object = Door(obj['name'], position, destination)
+                elif obj['type'] == 'door_misc':
+                    new_object = DoorMisc(obj['name'], position, destination)
                 elif obj['type'] == 'ladder':
                     new_object = Ladder(obj['name'], position, destination)
                 elif obj['type'] == 'vent':

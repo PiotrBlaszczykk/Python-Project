@@ -9,6 +9,16 @@
     "y": 400
   },
 
+  "Items":[
+    {
+      "name": "trzy-_ero",
+      "position": {"x":  820, "y":  370},
+      "scale": {"x":  118, "y":  76},
+      "imagePath": "trzy_zero.png",
+      "index": 2
+    }
+  ],
+
   "Warps": [
     {
       "name": "door",

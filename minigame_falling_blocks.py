@@ -28,7 +28,12 @@ class minigame_falling_blocks:
         self.motherClass = motherClass
         self.mapLoader = MapLoader(self.screen)
         self.counter = 0 #potrzebne do spawnowania elementów
+        self.completed = False
         self.loadMap()
+        self.paused = False
+        self.completed = False
+
+        self.item_collected = False
 
     def loadMap(self):
         self.ImageCache = ImageCache()
@@ -36,12 +41,17 @@ class minigame_falling_blocks:
         self.static_props = self.map_objects["static_props"]
         self.void_props = self.map_objects["void_props"]
         self.map_objects["dynamic_props"] = self.dynamic_props
+        self.items = self.map_objects["items"]
 
         self.heart = pygame.image.load("minigames/falling_blocks/graphics/full_heart.png")
         self.heart = pygame.transform.scale(self.heart, (80, 80))
 
         self.harnas = pygame.image.load("minigames/falling_blocks/graphics/harnas.png")
         self.harnas = pygame.transform.scale(self.harnas, (60, 80))
+
+        self.ruskacz = self.map_objects["items"][0]
+        self.ruskacz.hide()
+
 
         self.camera = Camera(self.map_objects)
 
@@ -72,6 +82,7 @@ class minigame_falling_blocks:
         self.dynamic_props.append(element)
 
     def checkColision(self, dynamic_el):
+
         objects_start_x = dynamic_el.getPosition()[0]
         objects_end_x = dynamic_el.getPosition()[0] + dynamic_el.getAppearance().get_width()
         objects_start_y = dynamic_el.getPosition()[1]
@@ -97,6 +108,50 @@ class minigame_falling_blocks:
         if objects_end_y >= self.screen.get_height() - 20:
             self.dynamic_props.remove(dynamic_el)
 
+    def show_items(self):
+
+        items = self.player.items
+
+        if items[0]:
+            image = pygame.image.load("items/ruskacz.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/ruskacz_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (67, 147))
+        image_rect = image.get_rect(center = (380, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[1]:
+            image = pygame.image.load("items/marlboro.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/marlboro_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (63, 120))
+        image_rect = image.get_rect(center = (490, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[2]:
+            image = pygame.image.load("items/trzy_zero.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/trzy_zero_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (118, 76))
+        image_rect = image.get_rect(center = (620, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[3]:
+            image = pygame.image.load("items/kebab.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/kebab_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (107, 87))
+        image_rect = image.get_rect(center = (750, 100))
+        self.screen.blit(image, image_rect)
+
+        if items[4]:
+            image = pygame.image.load("items/vifon.png").convert_alpha()
+        else:
+            image = pygame.image.load("items/vifon_blank.png").convert_alpha()
+        image = pygame.transform.scale(image, (93, 123))
+        image_rect = image.get_rect(center = (880, 100))
+        self.screen.blit(image, image_rect)
+
 
 
     def render(self):
@@ -106,38 +161,38 @@ class minigame_falling_blocks:
         heart_position_x = 10
         harnas_position_y = 100
         harnas_position_x = 10
+
+        self.pause_button = pygame.image.load("grafiki_dump/pauza.png").convert_alpha()
+        self.pause_button = pygame.transform.scale(self.pause_button, (471, 78))
+        self.pause_button_rect = self.pause_button.get_rect(
+            center=(640, 360))
+
+
         while True:
-            self.screen.fill((68, 15, 104))
+            self.screen.fill((152, 217, 234))
 
             for event in pygame.event.get():
 
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        if self.paused:
+                            self.paused = False
+                        else:
+                            self.paused = True
+
                 keys = pygame.key.get_pressed()
-                if keys[pygame.K_r]:
 
-                    self.motherClass.reloadMap("maps/test2")
-                    self.motherClass.run()
-                    is_over = True
-                    break
+                if not self.paused:
+                    self.player.movement(event, self.camera)
 
-
-                elif keys[pygame.K_t]:
-
-                    self.motherClass.reloadMap("maps/test1")
-                    self.motherClass.run()
-                    is_over = True
-                    break
-
-                self.player.movement(event, self.camera)
             if is_over == True:
-                self.motherClass.reloadMap("maps/test1")
+                self.motherClass.reloadMap("maps/floor4")
                 self.motherClass.run()
                 break
-
-
-            self.player.tick_update(self.static_props, self.camera, self.map_objects["interactive_props"], self.map_objects["diss_blocks"])
 
             for void_el in self.void_props:
                 self.screen.blit(void_el.getAppearance(), void_el.getPosition())
@@ -146,41 +201,75 @@ class minigame_falling_blocks:
                 self.screen.blit(static_el.getAppearance(), static_el.getPosition())
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
 
-            for dynamic_el in self.dynamic_props:
-                if(self.checkColision(dynamic_el)):
-                    if(dynamic_el.isDeadly == True):
-                        self.health -= 1
-                        self.dynamic_props.remove(dynamic_el)
-                        if self.health <= 0:
-                            is_over = True
-                            successfull = False
-                            self.motherClass.reloadMap("maps/test1")
-                            self.motherClass.run()
-                            return successfull
-                        break
-                    else:
-                        self.score+=1
-                        if self.score >= 10:
-                            successfull = True
-                            self.motherClass.reloadMap("maps/test1")
-                            self.motherClass.run()
-                            return successfull
-                        print(self.score)
-                        self.dynamic_props.remove(dynamic_el)
-
-                self.remove_fallen_element(dynamic_el)
-                dynamic_el.moveVerticallyDown()
-                self.screen.blit(dynamic_el.getAppearance(), dynamic_el.getPosition())
-
-            if self.counter >= 120:
-                self.counter = 0
-                self.dynamicElementGenerate()
+            for obj in self.items:
+                self.screen.blit(obj.getAppearance(), obj.getPosition())
 
             for i in range(self.health):
                 self.screen.blit(self.heart, [self.heart.get_width() * i + 5, heart_position_y])
 
             for i in range(self.score):
                 self.screen.blit(self.harnas, [self.harnas.get_width() * i + 5, harnas_position_y])
-            self.counter += 1
+
+            for dynamic_el in self.dynamic_props:
+                self.screen.blit(dynamic_el.getAppearance(), dynamic_el.getPosition())
+
+
+            if not self.paused:
+
+                if self.player.hitbox.colliderect(self.ruskacz.hitbox) and self.completed:
+                    self.item_collected = True
+                    print("item collected")
+                    self.motherClass.reloadMap("maps/floor4")
+                    self.motherClass.run()
+                    return successfull
+
+                self.player.tick_update(self.static_props, self.camera, self.map_objects["interactive_props"], self.map_objects["diss_blocks"])
+
+                self.ruskacz.tick_update(self.player)
+
+                for dynamic_el in self.dynamic_props:
+                    if(self.checkColision(dynamic_el)):
+                        if(dynamic_el.isDeadly == True):
+                            self.health -= 1
+                            self.dynamic_props.remove(dynamic_el)
+                            if self.health <= 0:
+                                is_over = True
+                                successfull = False
+                                self.motherClass.reloadMap("maps/floor4")
+                                self.motherClass.run()
+                                return successfull
+                            break
+                        else:
+                            self.score+=1
+                            if self.score >= 1:
+                                self.successfull = True
+                                self.completed = True
+                                # self.motherClass.reloadMap("maps/test1")
+                                # self.motherClass.run()
+                                # return successfull
+                                self.ruskacz.show()
+
+
+
+                            print(self.score)
+                            self.dynamic_props.remove(dynamic_el)
+
+                    self.remove_fallen_element(dynamic_el)
+                    dynamic_el.moveVerticallyDown()
+
+                if self.counter >= 120 and self.completed == False:
+                    self.counter = 0
+                    self.dynamicElementGenerate()
+
+                self.counter += 1
+
+
+            else:
+                # pauza
+                self.screen.blit(self.pause_button, self.pause_button_rect)
+                keys = pygame.key.get_pressed()
+                self.show_items()
+
             self.clock.tick(fps)
             pygame.display.update()
+
