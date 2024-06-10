@@ -54,6 +54,7 @@ class minigame_lights:
                 self.buttonPressed.append(object)
 
 
+
         self.camera = Camera(self.map_objects)
 
     def check_solution(self):
@@ -129,10 +130,15 @@ class minigame_lights:
                 self.motherClass.starting_map = "maps/floor2"
                 self.motherClass.run()
 
+            for obj in self.map_objects["void_props"]:
+                self.screen.blit(obj.getAppearance(), obj.getPosition())
+
             for static_el in self.static_props:
                 if static_el.name == "buttonOff" or static_el.name == "buttonPressed" or static_el.name == "diodeOn" or static_el.name == "diodeOff":
                     continue
                 self.screen.blit(static_el.getAppearance(), static_el.getPosition())
+
+
             self.screen.blit(self.player.getAppearance(), self.player.getPosition())
             self.screen.blit(self.kebab.getAppearance(), self.kebab.getPosition())
 

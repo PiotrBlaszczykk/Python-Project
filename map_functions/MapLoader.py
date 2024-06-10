@@ -15,6 +15,7 @@ from map_functions.InteractiveProps.Ladder import Ladder
 from map_functions.InteractiveProps.Vent import Vent
 from map_functions.DissBlock import DissBlock
 from map_functions.Item import Item
+from map_functions.InteractiveProps.ExitDoor import ExitDoor
 
 class MapLoader():
     def __init__(self, screen):
@@ -82,6 +83,8 @@ class MapLoader():
                     new_object = Ladder(obj['name'], position, destination)
                 elif obj['type'] == 'vent':
                     new_object = Vent(obj['name'], position, destination)
+                elif obj['type'] == 'exit_door':
+                    new_object = ExitDoor(obj['name'], position, destination)
                 self.interactive_props.append(new_object)
 
         if "Boxes" in self.map:

@@ -14,6 +14,16 @@
         "y": -140
       },
       "destination": "maps/floor3"
+    },
+
+    {
+      "name": "door_back2",
+      "type": "door",
+      "position": {
+        "x": 8000,
+        "y": -140
+      },
+      "destination": "maps/floor3"
     }
   ],
 
@@ -26,6 +36,16 @@
         "x": 2300,
         "y": 220
       }
+    }
+  ],
+
+  "Items":[
+    {
+      "name": "marlboro",
+      "position": {"x":  8700, "y":  300},
+      "scale": {"x":  63, "y":  120},
+      "imagePath": "marlboro.png",
+      "index": 1
     }
   ],
 
@@ -88,6 +108,20 @@
   ],
 
   "StaticProps": [
+
+    {
+      "name": "block_end",
+      "position": {
+        "x": 8000,
+        "y": 500
+      },
+      "imagePath": "block.png",
+      "scale": {
+        "x": 800,
+        "y": 100
+      }
+    },
+
     {
       "name": "block",
       "position": {
@@ -1348,6 +1382,226 @@
         }
     },
 
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 7776,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 7884,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 7992,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8100,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8208,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8316,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8424,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8532,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8640,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8748,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8856,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 8964,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 9072,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+        {
+        "name": "background_wall",
+        "position": {
+            "x": 9180,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+        {
+        "name": "background_wall",
+        "position": {
+            "x": 9288,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+        {
+        "name": "background_wall",
+        "position": {
+            "x": 9396,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
+
+    {
+        "name": "background_wall",
+        "position": {
+            "x": 9504,
+            "y": 0
+        },
+        "imagePath": "background_wall.png",
+        "scale": {
+            "x": 108,
+            "y": 789
+        }
+    },
 
 
     {

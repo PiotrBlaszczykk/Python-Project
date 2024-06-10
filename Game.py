@@ -28,7 +28,7 @@ class Game:
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
         self.paused = False
 
-        self.starting_map = "maps/easter_egg"
+        self.starting_map = "maps/floor4"
 
 
     def showMenu(self):
@@ -188,6 +188,8 @@ class Game:
                     obj.tick_update(self.player)
                     if obj.colliding and self.e_pressed:
                         if obj.type == "warp" and not self.player.pushing:
+                            self.reloadMap(obj.destination)
+                        if obj.type == "exit_door" and obj.open and not self.player.pushing:
                             self.reloadMap(obj.destination)
                         elif obj.type == "warp_misc" and not self.player.pushing:
                             destination = obj.destination

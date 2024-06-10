@@ -1,0 +1,120 @@
+{
+    "BackgroundColor": {
+    "r": 14,
+    "g": 219,
+    "b": 248
+  },
+
+  "StaticProps": [
+
+    {
+      "name": "grass",
+      "position": {"x": -2560, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+
+    {
+      "name": "grass",
+      "position": {"x": -1280, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+
+    {
+      "name": "grass",
+      "position": {"x": 0, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+
+    {
+      "name": "grass",
+      "position": {"x": 1280, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+
+    {
+      "name": "grass",
+      "position": {"x": 2560, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+
+    {
+      "name": "grass",
+      "position": {"x": 3840, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    }
+  ],
+
+  "AnimatedProps": [
+    {
+      "name": "stefcia",
+      "position": {
+        "x": 963,
+        "y": 438
+      },
+      "imagePath1": "stefcia_1.png",
+      "imagePath2": "stefcia_2.png",
+      "scale": {
+        "x": 112,
+        "y": 92
+      }
+    }
+    ],
+
+  "VoidProps": [
+
+    {
+      "name": "harnasie",
+      "position": {"x": 900, "y":  490},
+      "imagePath": "harnasie.png",
+      "scale": {"x": 258, "y": 174}
+    },
+
+    {
+      "name": "credits",
+      "position": {"x": 600, "y":  0},
+      "imagePath": "credits.png",
+      "scale": {"x": 708, "y": 144}
+    },
+
+    {
+      "name": "code",
+      "position": {"x": 0, "y":  150},
+      "imagePath": "code.png",
+      "scale": {"x": 868, "y": 100}
+    },
+
+    {
+      "name": "piotr",
+      "position": {"x": 50, "y":  250},
+      "imagePath": "piotr.png",
+      "scale": {"x": 708, "y": 87}
+    },
+
+    {
+      "name": "swend",
+      "position": {"x": -10, "y":  320},
+      "imagePath": "swend.png",
+      "scale": {"x": 921, "y": 105}
+    },
+
+    {
+      "name": "grap",
+      "position": {"x": 1100, "y":  135},
+      "imagePath": "grap.png",
+      "scale": {"x": 512, "y": 124}
+    },
+
+    {
+      "name": "piotr",
+      "position": {"x": 1000, "y":  250},
+      "imagePath": "piotr.png",
+      "scale": {"x": 708, "y": 87}
+    }
+  ]
+}

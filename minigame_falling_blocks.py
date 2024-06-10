@@ -241,7 +241,7 @@ class minigame_falling_blocks:
                             break
                         else:
                             self.score+=1
-                            if self.score >= 1:
+                            if self.score >= 10:
                                 self.successfull = True
                                 self.completed = True
                                 # self.motherClass.reloadMap("maps/test1")
