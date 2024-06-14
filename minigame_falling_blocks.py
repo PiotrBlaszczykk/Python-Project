@@ -5,8 +5,6 @@ import pygame
 from map_functions.DynamicProp import DynamicProp
 from map_functions.ImageCache import ImageCache
 from map_functions.MapLoader import MapLoader
-from map_functions.StaticProp import StaticProp
-from map_functions.VoidProp import VoidProp
 from config import fps, fps_ratio
 import sys
 from camera import Camera

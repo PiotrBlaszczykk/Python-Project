@@ -1,14 +1,11 @@
 import sys
 import pygame
-
 from minigame_lights import minigame_lights
 from player import Player
-import math
-from cloud import Cloud
 from camera import Camera
 from Menu import Menu
 from minigame_falling_blocks import minigame_falling_blocks
-
+from minigame_puzzle import minigame_puzzle
 from map_functions.MapLoader import MapLoader
 
 
@@ -26,6 +23,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.menu = Menu(self.screen, self.clock, self)
         self.falling_blocks = minigame_falling_blocks(self.screen, self.clock, self.player, self)
+        self.puzzle = minigame_puzzle(self.screen, self.clock, self)
         self.paused = False
 
         self.starting_map = "maps/floor4"
@@ -41,6 +39,10 @@ class Game:
     def show_lights(self):
         self.minigame_lights = minigame_lights(self.screen, self.clock, self.player, self)
         self.mapLoader.loadMisc(self.minigame_lights)
+
+    def show_puzzle(self):
+        self.minigame_puzzle = minigame_puzzle(self.screen, self.clock, self)
+        self.minigame_puzzle.run()
 
     def show_items(self):
 
@@ -171,6 +173,9 @@ class Game:
                 elif keys[pygame.K_z]:
                     self.show_lights()
                     break
+                elif keys[pygame.K_p]:
+                    self.show_puzzle()
+                    break
 
 
                 if not self.paused:
@@ -239,4 +244,30 @@ if __name__ == "__main__":
     curr_player = Player('player1', [420, 0])
     game_instance = Game(curr_player)
     game_instance.showMenu()
+
+
+#Błaszczyk, nie wiem za bardzo jak działa twoje destination. Cała minigierka z puzzlami
+#jest już gotowa. Na razie odpala się jak się kliknie P. Dodaj te zakomentowane drzwi tak żeby włączały minigierkę.
+#tym że po ułożeniu puzzli, dodawany jest przedmiot już się zająłem
+# {
+#       "name": "door_puzzle",
+#       "type": "door_misc",
+#       "position": {
+#         "x": 700,
+#         "y": -22
+#       },
+#       "destination": 1
+#     },
+#         {
+#       "name": "vifon_frame",
+#       "position": {
+#         "x": 800,
+#         "y": 100
+#       },
+#       "imagePath": "item_frame_harnas.png",
+#       "scale": {
+#         "x": 144,
+#         "y": 144
+#       }
+#     },
 
