@@ -141,15 +141,8 @@ class minigame_lights:
             self.drawGame(False)
 
             if self.check_solution() and not self.completed:
-                # for i in range(120):
-                #     self.drawGame(True)
-                #     self.clock.tick(fps)
-                #     pygame.display.update()
                 self.completed = True
                 self.kebab.show()
-                # self.motherClass.reloadMap("maps/test1")
-                # self.motherClass.run()
-                # return True
 
             self.clock.tick(fps)
             pygame.display.update()

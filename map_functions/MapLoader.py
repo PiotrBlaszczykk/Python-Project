@@ -70,7 +70,6 @@ class MapLoader():
 
         self.interactive_props = []
 
-        #self.doors = []
         if 'Warps' in self.map:
             for obj in self.map['Warps']:
                 position = [obj['position']['x'], obj['position']['y']]
@@ -136,14 +135,6 @@ class MapLoader():
 
 
         self.dynamic_props = []                     #do edycji, tymczasowe żeby się program kompilował
-
-        # self.map_objects.append(self.static_props)
-        # self.map_objects.append(self.void_props)
-        # self.map_objects.append(self.dynamic_props)
-        # self.map_objects.append(self.interactive_props)
-        # self.map_objects.append(self.background_props)
-
-        # self.map_objects.append(self.spawn)
 
         self.map_objects["static_props"] = self.static_props
         self.map_objects["void_props"] = self.void_props

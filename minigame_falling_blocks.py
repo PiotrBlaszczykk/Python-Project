@@ -239,14 +239,10 @@ class minigame_falling_blocks:
                             break
                         else:
                             self.score+=1
-                            if self.score >= 10:
+                            if self.score >= 10 and not self.completed:
                                 self.successfull = True
                                 self.completed = True
-                                # self.motherClass.reloadMap("maps/test1")
-                                # self.motherClass.run()
-                                # return successfull
                                 self.ruskacz.show()
-
 
 
                             print(self.score)

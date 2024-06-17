@@ -13,6 +13,5 @@ class Cloud():
         if self.position[0] > self.screen_width:
             self.position[0] = -self.image.get_width()
 
-
     def getPosition(self):
         return self.position

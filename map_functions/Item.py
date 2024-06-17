@@ -7,7 +7,6 @@ def load_image(path):
     image = pygame.transform.scale(image, scale)
     return image
 
-#Door nalezy do Interactive Props
 class Item():
 
     def __init__(self, objectName, objectPosition, imagePath, scale, index):
@@ -24,7 +23,6 @@ class Item():
         self.ticks_elapsed = 0
         self.shift = 0
         self.direction = 0.5 * fps_ratio
-
 
     def hide(self):
         self.position[1] += 2000

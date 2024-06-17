@@ -46,8 +46,6 @@ class Player():
         self.images = PlayerImages()
 
         self.appearance = self.images.Moving_left1
-        #self.hitbox = self.appearance.get_rect(topleft=self.position)
-        # self.hitbox = pygame.Rect(self.position[0] + 18, self.position[1] + 9, 102, 144)
         self.hitbox = pygame.Rect(self.position[0] + 15, self.position[1], 108, 162)
 
         self.playerState = PlayerState.STANDING_RIGHT
@@ -161,19 +159,10 @@ class Player():
         if self.ticks_elapsed == 1360: #NWW 170 i 80
             self.ticks_elapsed = 0
 
-        # if self.ticks_elapsed > self.change_outfit1:
-        #     self.ticks_elapsed = 0
-        #
-        # if self.ticks_elapsed > self.change_outfit1:
-        #     self.ticks_elapsed = 0
-
         #ZWAŻKA NA KOLEJNOŚĆ!
 
-        #self.position[0] = int(self.position[0])
         self.position[0] = 640
         self.position[1] = int(self.position[1])
-        #w celu synchronizacji hitboxa z pozycja
-
 
         if self.pushing:
             if self.playerState == PlayerState.PUSHING_RIGHT:
@@ -182,9 +171,6 @@ class Player():
                 self.hitbox = pygame.Rect(self.position[0] - 170, self.position[1], 290, 162)
         else:
             self.hitbox = pygame.Rect(self.position[0] + 15, self.position[1], 108, 162)
-
-        #self.hitbox.topleft = self.position
-
 
         if self.player_movement[2]:  # Ruch w lewo
 
@@ -266,19 +252,12 @@ class Player():
                     else:
                         self.playerState = PlayerState.AIRBORNE_LEFT
 
-        # if self.pushing:
-        #     if self.last_move_was_right:
-        #         self.playerState = PlayerState.PUSHING_RIGHT
-        #     else:
-        #         self.playerState = PlayerState.PUSHING_LEFT
-
         if self.pushing:
             self.moving_object.move(self.horizontal_velocity)
 
 
         self.update_appearance()
 
-        #self.position[0] += self.horizontal_velocity
         if not camera.isPlayerBlocked:
             camera.move()
 
@@ -317,11 +296,6 @@ class Player():
         self.flag = False
 
     def handle_collision(self, object, camera):
-
-        #hitbox[ position[0], position[1], szerokosc, wysokosc]
-        #funkcja handle_collision zwróci True, jeśli kolizja polega na tym, że
-        #gracz stoi na ziemi, w przeciwnym wypadku zwraca False
-        #jest to po to by dobrze ustalić paramentr airborne
 
         #kolizje poziome
         if object.hitbox.colliderect(self.hitbox[0] + 2*self.horizontal_velocity, self.hitbox[1], self.hitbox[2], self.hitbox[3]):

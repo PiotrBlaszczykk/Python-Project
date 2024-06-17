@@ -9,17 +9,6 @@
     "y": 400
   },
 
-  "Items":[
-    {
-      "name": "vifon",
-      "position": {"x":  2800, "y":  400},
-      "scale": {"x":  93, "y":  123},
-      "imagePath": "vifon.png",
-      "index": 4
-    }
-  ],
-
-
   "Warps": [
     {
       "name": "door_up",
@@ -39,8 +28,17 @@
         "y": 200
       },
       "destination": "maps/credits"
-    }
+    },
 
+    {
+      "name": "door_puzzle",
+      "type": "door_misc",
+      "position": {
+        "x": 2600,
+        "y": -22
+      },
+      "destination": 3
+    }
   ],
   "StaticProps": [
     {
@@ -1347,6 +1345,19 @@
       "scale": {
         "x": 648,
         "y": 642
+      }
+    },
+
+    {
+      "name": "vifon_frame",
+      "position": {
+        "x": 2700,
+        "y": 100
+      },
+      "imagePath": "item_frame_vifon.png",
+      "scale": {
+        "x": 144,
+        "y": 144
       }
     }
   ],

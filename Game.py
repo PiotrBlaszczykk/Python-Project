@@ -91,7 +91,6 @@ class Game:
 
     def reloadMap(self, mapFile):
 
-
         self.map_objects = self.mapLoader.loadMap(mapFile)
         self.static_props = self.map_objects["static_props"]
         self.void_props = self.map_objects["void_props"]
@@ -120,8 +119,6 @@ class Game:
 
         self.pause_button = pygame.image.load("grafiki_dump/pauza.png").convert_alpha()
         self.pause_button = pygame.transform.scale(self.pause_button, (471, 78))
-        # self.pause_button_rect = self.pause_button.get_rect(
-        #     center=(self.screen.get_width() / 2, self.screen.get_height() / 2))
         self.pause_button_rect = self.pause_button.get_rect(
             center=(640, 360))
 
@@ -136,6 +133,7 @@ class Game:
             self.e_pressed = False
 
             # pygame.draw.rect(self.screen, (255, 0, 0), self.player.hitbox, 10)
+            # do debugowania
 
             for event in pygame.event.get():
 
@@ -155,9 +153,6 @@ class Game:
 
                     self.items[0].show()
 
-                    # R key is pressed
-                    # Your code for handling R key press goes here
-
                 elif keys[pygame.K_t]:
 
                     self.items[0].hide()
@@ -165,18 +160,6 @@ class Game:
                 elif keys[pygame.K_e]:
 
                     self.e_pressed = True
-
-                elif keys[pygame.K_u]:
-                    self.show_falling_blocks()
-                    break
-
-                elif keys[pygame.K_z]:
-                    self.show_lights()
-                    break
-                elif keys[pygame.K_p]:
-                    self.show_puzzle()
-                    break
-
 
                 if not self.paused:
                     self.player.movement(event, self.camera)
@@ -202,6 +185,8 @@ class Game:
                                 self.show_falling_blocks()
                             if destination == 2:
                                 self.show_lights()
+                            if destination == 3:
+                                self.show_puzzle()
                             break
 
 
@@ -237,37 +222,8 @@ class Game:
             self.clock.tick(fps)
             pygame.display.update()
 
-
-
-
 if __name__ == "__main__":
     curr_player = Player('player1', [420, 0])
     game_instance = Game(curr_player)
     game_instance.showMenu()
-
-
-#Błaszczyk, nie wiem za bardzo jak działa twoje destination. Cała minigierka z puzzlami
-#jest już gotowa. Na razie odpala się jak się kliknie P. Dodaj te zakomentowane drzwi tak żeby włączały minigierkę.
-#tym że po ułożeniu puzzli, dodawany jest przedmiot już się zająłem
-# {
-#       "name": "door_puzzle",
-#       "type": "door_misc",
-#       "position": {
-#         "x": 700,
-#         "y": -22
-#       },
-#       "destination": 1
-#     },
-#         {
-#       "name": "vifon_frame",
-#       "position": {
-#         "x": 800,
-#         "y": 100
-#       },
-#       "imagePath": "item_frame_harnas.png",
-#       "scale": {
-#         "x": 144,
-#         "y": 144
-#       }
-#     },
 
