@@ -1,0 +1,34 @@
+{
+    "BackgroundColor": {
+    "r": 14,
+    "g": 219,
+    "b": 248
+  },
+
+  "StaticProps": [
+    {
+      "name": "grass",
+      "position": {"x": 0, "y": 664},
+      "imagePath": "grass2.png",
+      "scale": {"x": 1280, "y": 59}
+    },
+        {
+      "name": "kolumna",
+      "position": {"x": 1196, "y": -208},
+      "imagePath": "wi_kolumna.png",
+      "scale": {"x": 84, "y": 872}
+    }
+
+    ],
+
+  "VoidProps": [
+    {
+      "name": "krzak",
+      "position": {"x": 600, "y":  500},
+      "imagePath": "harnas.png",
+      "scale": {"x": 30, "y": 48}
+    }
+
+
+  ]
+}

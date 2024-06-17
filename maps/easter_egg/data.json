@@ -1,0 +1,446 @@
+{
+  "BackgroundColor": {
+    "r": 219,
+    "g": 219,
+    "b": 219
+  },
+  "Spawn": {
+    "x": 420,
+    "y": 400
+  },
+
+  "Items":[
+    {
+      "name": "trzy_zero",
+      "position": {"x":  820, "y":  370},
+      "scale": {"x":  118, "y":  76},
+      "imagePath": "trzy_zero.png",
+      "index": 2
+    }
+  ],
+
+  "Warps": [
+    {
+      "name": "door",
+      "type": "door",
+      "position": {
+        "x": 240,
+        "y": -22
+      },
+      "destination": "maps/floor4"
+    }
+  ],
+
+
+  "StaticProps": [
+    {
+      "name": "desk",
+      "position": {
+        "x": 810,
+        "y": 490
+      },
+      "imagePath": "desk.png",
+      "scale": {
+        "x": 284,
+        "y": 132
+      }
+    },
+
+    {
+      "name": "wi_column_right",
+      "position": {
+        "x": 1100,
+        "y": -205
+      },
+      "imagePath": "wi_column.png",
+      "scale": {
+        "x": 84,
+        "y": 872
+      }
+    },
+    {
+      "name": "wi_column_left",
+      "position": {
+        "x": 200,
+        "y": -205
+      },
+      "imagePath": "wi_column.png",
+      "scale": {
+        "x": 84,
+        "y": 872
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 678,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 540,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 402,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 264,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 126,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+
+    {
+      "name": "ground",
+      "position": {
+        "x": 816,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 954,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    },
+    {
+      "name": "ground",
+      "position": {
+        "x": 1092,
+        "y": 620
+      },
+      "imagePath": "ground.png",
+      "scale": {
+        "x": 138,
+        "y": 136
+      }
+    }
+  ],
+  "VoidProps": [
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 540,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 432,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 324,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 216,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 108,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": -108,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+
+
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 648,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 756,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 864,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 972,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 1080,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "background_wall",
+      "position": {
+        "x": 1188,
+        "y": 0
+      },
+      "imagePath": "background_wall.png",
+      "scale": {
+        "x": 108,
+        "y": 642
+      }
+    },
+    {
+      "name": "wall_right",
+      "position": {
+        "x": 1154,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+    {
+      "name": "wall_right",
+      "position": {
+        "x": 1362,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+
+    {
+      "name": "wall_right",
+      "position": {
+        "x": 1570,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+    {
+      "name": "wall_left",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+    {
+      "name": "wall_left",
+      "position": {
+        "x": -208,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+    {
+      "name": "wall_left",
+      "position": {
+        "x": -416,
+        "y": 0
+      },
+      "imagePath": "wall_stripe.png",
+      "scale": {
+        "x": 208,
+        "y": 720
+      }
+    },
+
+    {
+      "name": "ramka",
+      "position": {
+        "x": 900,
+        "y": 200
+      },
+      "imagePath": "calka.png",
+      "scale": {
+        "x": 186,
+        "y": 122
+      }
+    },
+
+    {
+      "name": "wacek",
+      "position": {
+        "x": 600,
+        "y": 180
+      },
+      "imagePath": "Wacus.png",
+      "scale": {
+        "x": 199,
+        "y": 271
+      }
+    }
+  ],
+
+  "AnimatedProps": [
+    {
+      "name": "stefcia",
+      "position": {
+        "x": 980,
+        "y": 400
+      },
+      "imagePath1": "stefcia_1.png",
+      "imagePath2": "stefcia_2.png",
+      "scale": {
+        "x": 112,
+        "y": 92
+      }
+    }
+    ]
+}
