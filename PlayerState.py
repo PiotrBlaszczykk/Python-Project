@@ -1,5 +1,4 @@
 from enum import Enum
-
 class PlayerState(Enum):
     STANDING_RIGHT = 1
     STANDING_LEFT = 2

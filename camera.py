@@ -56,3 +56,4 @@ class Camera():
             object.hitbox = object.getHitbox()
 
 
+

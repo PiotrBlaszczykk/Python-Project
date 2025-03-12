@@ -2,7 +2,7 @@ import json
 import os
 
 # Ścieżka do pliku JSON
-file_path = "SWEDZIOL NIE RUSZAJ"
+file_path = "SWEDZIOL NIE RUSZAJ!!!"
 przesuniecie = 0
 
 def shift_positions_and_update_scale(file_path):
